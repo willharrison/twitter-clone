@@ -20,7 +20,7 @@ class RePostController extends Controller {
         $this->me = $auth->user();
     }
 
-    public function postStore(Request $request)
+    public function postStore(Requests\RePostRequest $request)
     {
         $userId = $this->me->id;
         $postId = $request->only(['post_id'])['post_id'];

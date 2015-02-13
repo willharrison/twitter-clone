@@ -21,7 +21,7 @@ class SubscribeController extends Controller {
 		$this->auth = $auth;
 	}
 
-	public function postFollow(Request $request)
+	public function postFollow(Requests\FollowRequest $request)
 	{
 		$command = new SubscribeUser(
 			$this->auth->user(),

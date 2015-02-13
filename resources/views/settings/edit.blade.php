@@ -19,26 +19,31 @@
         </div>
     @endif
 
-    <div class="form-group">
-        <label class="col-md-4 control-label">E-Mail Address</label>
-        <div class="col-md-6">
-            <input type="email" class="form-control" name="email" value="{{ $request->user()->email }}">
-        </div>
-    </div>
+    <form action="/settings/edit" method="post">
 
-    <div class="form-group">
-        <label class="col-md-4 control-label">Full Name</label>
-        <div class="col-md-6">
-            <input type="text" class="form-control" name="full_name" value="{{ $request->user()->settings->full_name }}">
+        <input type="hidden" value="{{ csrf_token() }}" name="_token"/>
+        <div class="form-group">
+            <label class="col-md-4 control-label">E-Mail Address</label>
+            <div class="col-md-6">
+                <input type="email" class="form-control" name="email" value="{{ $request->user()->email }}">
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-6 col-md-offset-4">
-            <button type="submit" class="btn btn-primary" style="margin-right: 15px;">
-                Save
-            </button>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Full Name</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="full_name" value="{{ $request->user()->settings->full_name }}">
+            </div>
         </div>
-    </div>
+
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-4">
+                <button type="submit" class="btn btn-primary" style="margin-right: 15px;">
+                    Save
+                </button>
+            </div>
+        </div>
+
+    </form>
 
 @endsection

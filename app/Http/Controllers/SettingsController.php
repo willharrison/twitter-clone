@@ -2,6 +2,7 @@
 
 use Twitter\Http\Requests;
 use Twitter\Http\Controllers\Controller;
+use Twitter\Http\Requests\SettingsRequest;
 
 use Illuminate\Http\Request;
 
@@ -32,7 +33,7 @@ class SettingsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function postEdit(Request $request)
+	public function postEdit(SettingsRequest $request)
 	{
 		// ~~~~~~~~~~~~~~~
 		//
