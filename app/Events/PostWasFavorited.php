@@ -13,11 +13,6 @@ class PostWasFavorited extends Event implements ShouldBeQueued {
 
 	public $user, $post;
 
-	/**
-	 * Create a new event instance.
-	 *
-	 * @return void
-	 */
 	public function __construct(User $user, Post $post)
 	{
 		$this->user = $user;

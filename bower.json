@@ -1,0 +1,22 @@
+{
+  "name": "twitter-clone",
+  "version": "0.0.0",
+  "homepage": "https://github.com/willharrison/twitter-clone",
+  "authors": [
+    "willharrison <jwh335@gmail.com>"
+  ],
+  "description": "clone of twitter",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.13",
+    "bootstrap-sass-official": "~3.3.3",
+    "bootstrap": "~3.3.2"
+  }
+}

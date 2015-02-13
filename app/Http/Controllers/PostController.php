@@ -8,19 +8,21 @@ use Twitter\Http\Requests;
 use Twitter\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Twitter\Repositories\PostRepository;
 use Twitter\User;
 
 class PostController extends Controller {
 
     use DispatchesCommands;
 
-    protected $auth, $me;
+    protected $auth, $me, $repo;
 
-    public function __construct(Guard $auth)
+    public function __construct(Guard $auth, PostRepository $repo)
     {
         $this->middleware('auth');
-        $this->auth = $auth;
         $this->me = $auth->user();
+        $this->auth = $auth;
+        $this->repo = $repo;
     }
 
     public function getShow(User $user, $id)
@@ -39,7 +41,7 @@ class PostController extends Controller {
 
         $this->dispatch(new CreatePost(
             $this->me,
-            $post
+            $request
         ));
 
         return redirect('home');
@@ -48,10 +50,11 @@ class PostController extends Controller {
     public function postFavorite(Request $request)
     {
         $postId = $request->only('post_id')['post_id'];
+        $post = $this->repo->find($postId);
 
         $this->dispatch(new AddPostToFavorites(
             $this->me,
-            $postId
+            $post
         ));
 
         return redirect('home');

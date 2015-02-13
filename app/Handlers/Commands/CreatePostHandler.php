@@ -25,10 +25,10 @@ class CreatePostHandler {
 	 */
 	public function handle(CreatePost $command)
 	{
-		$this->postFactory->create($command->user->id, $command->post);
+		$this->postFactory->create($command->user->id, $command->postString);
 
 		$this->eventDispatcher->fire(
-			new UserPosted($command->user, $command->post)
+			new UserPosted($command->user, $command->postString)
 		);
 	}
 

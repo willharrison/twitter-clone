@@ -6,12 +6,4 @@ use Twitter\Commands\Command;
 
 class AddPostToFavorites extends Command implements ShouldBeQueued {
 
-	public $user, $postId;
-
-	public function __construct(Model $user, $postId)
-	{
-		$this->user = $user;
-		$this->postId = $postId;
-	}
-
 }

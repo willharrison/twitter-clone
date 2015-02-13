@@ -6,12 +6,11 @@ use Twitter\User;
 
 class CreatePost extends Command implements ShouldBeQueued {
 
-	public $user, $post;
+    public $postString;
 
-	public function __construct(User $user, $post)
-	{
-		$this->user = $user;
-		$this->post = $post;
-	}
-
+    public function __construct(User $user, $postString)
+    {
+        $this->user = $user;
+        $this->postString = $postString;
+    }
 }

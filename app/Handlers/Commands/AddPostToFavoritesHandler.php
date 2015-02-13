@@ -10,21 +10,14 @@ use Twitter\Repositories\PostRepository;
 
 class AddPostToFavoritesHandler {
 
-	protected $factory, $dispatcher, $repo;
+	protected $factory, $dispatcher;
 
-	/**
-	 * Create the command handler.
-	 *
-	 * @return void
-	 */
 	public function __construct(
 		FavoriteFactory $factory,
-		Dispatcher $dispatcher,
-		PostRepository $repo)
+		Dispatcher $dispatcher)
 	{
 		$this->factory = $factory;
 		$this->dispatcher = $dispatcher;
-		$this->repo = $repo;
 	}
 
 	/**
@@ -35,11 +28,10 @@ class AddPostToFavoritesHandler {
 	 */
 	public function handle(AddPostToFavorites $command)
 	{
-		$post = $this->repo->find($command->postId);
-		$this->factory->create($command->user->id, $command->postId);
+		$this->factory->create($command->user->id, $command->post->id);
 
 		$this->dispatcher->fire(
-			new PostWasFavorited($command->user, $post)
+			new PostWasFavorited($command->user, $command->post)
 		);
 	}
 

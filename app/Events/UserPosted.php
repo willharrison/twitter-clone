@@ -11,12 +11,12 @@ class UserPosted extends Event implements ShouldBeQueued {
 
 	use SerializesModels;
 
-	public $user, $post;
+	public $user, $postString;
 
-	public function __construct(Model $user, $post)
+	public function __construct(Model $user, $postString)
 	{
 		$this->user = $user;
-		$this->post = $post;
+		$this->postString = $postString;
 	}
 
 }

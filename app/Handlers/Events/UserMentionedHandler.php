@@ -36,7 +36,7 @@ class UserMentionedHandler {
 	public function handle(UserPosted $event)
 	{
 		$by = $event->user->name;
-		$mentions = $this->parser->mentionsIn($event->post);
+		$mentions = $this->parser->mentionsIn($event->postString);
 
 		foreach ($mentions as $mention)
 		{
