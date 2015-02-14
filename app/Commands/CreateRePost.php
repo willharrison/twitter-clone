@@ -2,14 +2,15 @@
 
 use Illuminate\Contracts\Queue\ShouldBeQueued;
 use Twitter\Commands\Command;
+use Twitter\User;
 
 class CreateRePost extends Command implements ShouldBeQueued {
 
-	public $userId, $postId;
+	public $user, $postId;
 
-	public function __construct($userId, $postId)
+	public function __construct(User $user, $postId)
 	{
-		$this->userId = $userId;
+		$this->user = $user;
 		$this->postId = $postId;
 	}
 

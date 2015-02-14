@@ -3,6 +3,8 @@
 use Illuminate\Contracts\Queue\ShouldBeQueued;
 use Illuminate\Database\Eloquent\Model;
 use Twitter\Commands\Command;
+use Twitter\Post;
+use Twitter\User;
 
 class AddPostToFavorites extends Command implements ShouldBeQueued {
 

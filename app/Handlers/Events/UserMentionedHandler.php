@@ -40,11 +40,12 @@ class UserMentionedHandler {
 
 		foreach ($mentions as $mention)
 		{
-			$this->newAlert($mention, $by);
+			$this->alert($mention, $by);
 		}
 	}
 
-	public function newAlert($user, $name)
+	// TODO: this exception functionality can be moved to the repo
+	private function alert($user, $name)
 	{
 		try
 		{

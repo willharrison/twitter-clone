@@ -22,8 +22,9 @@ class AlertFactory {
 
     public function create($userId, $message)
     {
-        $this->alert->user_id = $userId;
-        $this->alert->message = $message;
-        $this->alert->save();
+        $this->alert->create([
+            "user_id" => $userId,
+            "message" => $message
+        ]);
     }
 }

@@ -19,10 +19,14 @@ class EventServiceProvider extends ServiceProvider {
 		],
 		'Twitter\Events\UserPosted' => [
 			'Twitter\Handlers\Events\UserPostedHandler@handle',
-			'Twitter\Handlers\Events\UserMentionedHandler@handle'
+			'Twitter\Handlers\Events\UserMentionedHandler@handle',
+			'Twitter\Handlers\Events\UserPostedHashtagHandler@handle'
 		],
 		'Twitter\Events\PostWasFavorited' => [
 			'Twitter\Handlers\Events\PostWasFavoritedHandler@handle'
+		],
+		'Twitter\Events\UserRePosted' => [
+			'Twitter\Handlers\Events\UserRePostedHandler@handle'
 		]
 	];
 

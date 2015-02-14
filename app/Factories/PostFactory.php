@@ -22,9 +22,11 @@ class PostFactory {
 
     public function create($owner, $post)
     {
-        $this->post = new Post;
-        $this->post->user_id = $owner;
-        $this->post->post = $post;
-        $this->post->save();
+        $post = $this->post->create([
+            'user_id' => $owner,
+            'post' => $post
+        ]);
+
+        return $post->id;
     }
 }

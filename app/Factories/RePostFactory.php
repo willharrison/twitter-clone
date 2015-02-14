@@ -22,8 +22,9 @@ class RePostFactory {
 
     public function create($userId, $postId)
     {
-        $this->repost->user_id = $userId;
-        $this->repost->post_id = $postId;
-        $this->repost->save();
+        $this->repost->create([
+            'user_id' => $userId,
+            'post_id' => $postId
+        ]);
     }
 }

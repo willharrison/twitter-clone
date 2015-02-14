@@ -22,11 +22,10 @@ class RePostController extends Controller {
 
     public function postStore(Requests\RePostRequest $request)
     {
-        $userId = $this->me->id;
-        $postId = $request->only(['post_id'])['post_id'];
+        $postId = $request->post_id;
 
         $this->dispatch(new CreateRePost(
-            $userId,
+            $this->me,
             $postId
         ));
 

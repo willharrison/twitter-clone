@@ -23,7 +23,8 @@ class SettingsFactory {
 
     public function create(User $user)
     {
-        $this->settings->user_id = $user->id;
-        $this->settings->save();
+        $this->settings->create([
+            'user_id' => $user->id
+        ]);
     }
 }

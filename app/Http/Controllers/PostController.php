@@ -4,6 +4,7 @@ use Illuminate\Auth\Guard;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Twitter\Commands\AddPostToFavorites;
 use Twitter\Commands\CreatePost;
+use Twitter\Commands\UnFavoritePost;
 use Twitter\Http\Requests;
 use Twitter\Http\Controllers\Controller;
 
@@ -35,26 +36,39 @@ class PostController extends Controller {
             ->withUser($user);
     }
 
-    public function postCreate(Request $request)
+    public function postCreate(Requests\CreatePostRequest $request)
     {
-        $post = $request->only('post')['post'];
+        $post = $request->post;
 
         $this->dispatch(new CreatePost(
             $this->me,
-            $request
+            $post
         ));
 
         return redirect('home');
     }
 
-    public function postFavorite(Request $request)
+    public function postFavorite(Requests\FavoriteRequest $request)
     {
-        $postId = $request->only('post_id')['post_id'];
+        $postId = $request->post_id;
         $post = $this->repo->find($postId);
 
         $this->dispatch(new AddPostToFavorites(
             $this->me,
             $post
+        ));
+
+        return redirect('home');
+    }
+
+    public function postUnfavorite(Requests\UnFavoriteRequest $request)
+    {
+        $postId = $request->post_id;
+        $userId = $this->me->id;
+
+        $this->dispatch(new UnFavoritePost(
+            $userId,
+            $postId
         ));
 
         return redirect('home');

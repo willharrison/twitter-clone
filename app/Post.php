@@ -6,6 +6,8 @@ class Post extends Model {
 
     protected $table = "posts";
 
+    protected $fillable = ['user_id', 'post'];
+
     public function user()
     {
         return $this->belongsTo('Twitter\User');
@@ -21,4 +23,8 @@ class Post extends Model {
         return $this->hasMany('Twitter\RePost');
     }
 
+    public function hashtags()
+    {
+        return $this->belongsToMany('Twitter\HashtagMap');
+    }
 }

@@ -10,6 +10,7 @@
 </head>
 <body>
 
+	<b>{{ Auth::user()->name }}</b>
 	@yield('content')
 
 </body>

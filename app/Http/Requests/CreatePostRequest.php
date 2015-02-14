@@ -1,25 +1,16 @@
 <?php namespace Twitter\Http\Requests;
 
-use Illuminate\Contracts\Auth\Guard;
 use Twitter\Http\Requests\Request;
 
-class FollowRequest extends Request {
+class CreatePostRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
 	 *
 	 * @return bool
 	 */
-	public function authorize(Guard $auth)
+	public function authorize()
 	{
-		$me = $auth->user();
-		$followId = $this->follow_id;
-
-		if ($me->id == $followId || $me->follows($followId))
-		{
-			return false;
-		}
-
 		return true;
 	}
 
@@ -31,7 +22,7 @@ class FollowRequest extends Request {
 	public function rules()
 	{
 		return [
-			//
+			'post' => 'required|max:140'
 		];
 	}
 

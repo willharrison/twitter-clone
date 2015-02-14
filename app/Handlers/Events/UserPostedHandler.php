@@ -25,13 +25,18 @@ class UserPostedHandler {
 
 		foreach ($followers as $user)
 		{
-			$this->alertFactory->create(
-				$user->id,
-				$this->translator->get(
-					'alerts.following-posted', ['name' => $name]
-				)
-			);
+			$this->alert($user, $name);
 		}
+	}
+
+	private function alert($user, $name)
+	{
+		$this->alertFactory->create(
+			$user->id,
+			$this->translator->get(
+				'alerts.following-posted', ['name' => $name]
+			)
+		);
 	}
 
 }

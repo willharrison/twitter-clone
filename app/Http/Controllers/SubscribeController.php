@@ -2,6 +2,9 @@
 
 use Illuminate\Auth\Guard;
 use Illuminate\Foundation\Bus\DispatchesCommands;
+use Twitter\Commands\MuteUser;
+use Twitter\Commands\StopFollowing;
+use Twitter\Commands\StopMuting;
 use Twitter\Commands\SubscribeUser;
 use Twitter\Commands\UserSubscribes;
 use Twitter\Http\Requests;
@@ -25,7 +28,7 @@ class SubscribeController extends Controller {
 	{
 		$command = new SubscribeUser(
 			$this->auth->user(),
-			$request->only('follow_id')['follow_id']
+			$request->follow_id
 		);
 
 		$this->dispatch($command);
@@ -33,4 +36,39 @@ class SubscribeController extends Controller {
 		return redirect('home');
 	}
 
+	public function postUnfollow(Requests\StopFollowingRequest $request)
+	{
+		$command = new StopFollowing(
+			$this->auth->user(),
+			$request->follow_id
+		);
+
+		$this->dispatch($command);
+
+		return redirect('home');
+	}
+
+	public function postMute(Requests\MuteRequest $request)
+	{
+		$command = new MuteUser(
+			$this->auth->user()->id,
+			$request->mute_id
+		);
+
+		$this->dispatch($command);
+
+		return redirect('home');
+	}
+
+	public function postUnmute(Requests\StopMutingRequest $request)
+	{
+		$command = new StopMuting(
+			$this->auth->user(),
+			$request->mute_id
+		);
+
+		$this->dispatch($command);
+
+		return redirect('home');
+	}
 }

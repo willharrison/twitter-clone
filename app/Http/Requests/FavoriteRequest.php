@@ -3,7 +3,7 @@
 use Illuminate\Contracts\Auth\Guard;
 use Twitter\Http\Requests\Request;
 
-class FollowRequest extends Request {
+class FavoriteRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -12,10 +12,7 @@ class FollowRequest extends Request {
 	 */
 	public function authorize(Guard $auth)
 	{
-		$me = $auth->user();
-		$followId = $this->follow_id;
-
-		if ($me->id == $followId || $me->follows($followId))
+		if ($auth->user()->favorited($this->post_id))
 		{
 			return false;
 		}

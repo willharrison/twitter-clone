@@ -31,6 +31,45 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+	public function follows($id)
+	{
+		foreach ($this->following as $following)
+		{
+			if ($following->id == $id)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function muted($id)
+	{
+		foreach ($this->mutes as $mutes)
+		{
+			if ($mutes->muted_id == $id)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function favorited($id)
+	{
+		foreach ($this->favorites as $favorite)
+		{
+			if ($favorite->post_id == $id)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function settings()
 	{
 		return $this->hasOne('Twitter\Settings');
@@ -54,6 +93,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function alerts()
 	{
 		return $this->hasMany('Twitter\Alert');
+	}
+
+	public function mutes()
+	{
+		return $this->hasMany('Twitter\Mute', 'user_id', 'id');
 	}
 
 	public function followers()

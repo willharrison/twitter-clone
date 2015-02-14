@@ -23,8 +23,9 @@ class FavoriteFactory {
 
     public function create($userId, $postId)
     {
-        $this->favorite->user_id = $userId;
-        $this->favorite->post_id = $postId;
-        $this->favorite->save();
+        $this->favorite->create([
+            'user_id' => $userId,
+            'post_id' => $postId
+        ]);
     }
 }

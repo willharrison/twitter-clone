@@ -4,16 +4,22 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Twitter\Commands\CreateRePost;
 
 use Illuminate\Queue\InteractsWithQueue;
+use Twitter\Events\UserRePosted;
 use Twitter\Factories\RePostFactory;
+use Twitter\Repositories\PostRepository;
 
 class CreateRePostHandler {
 
-	protected $factory, $dispatcher;
+	protected $factory, $repo, $dispatcher;
 
-	public function __construct(RePostFactory $factory, Dispatcher $dispatcher)
+	public function __construct(
+		RePostFactory $factory,
+		PostRepository $repo,
+		Dispatcher $dispatcher)
 	{
 		$this->factory = $factory;
 		$this->dispatcher = $dispatcher;
+		$this->repo = $repo;
 	}
 
 	/**
@@ -24,7 +30,13 @@ class CreateRePostHandler {
 	 */
 	public function handle(CreateRePost $command)
 	{
-		$this->factory->create($command->userId, $command->postId);
+
+		$postOwner = $this->repo->find($command->postId)->user;
+		$this->factory->create($command->user->id, $command->postId);
+
+		$this->dispatcher->fire(new UserRePosted(
+			$command->user, $postOwner->id
+		));
 	}
 
 }

@@ -3,7 +3,7 @@
 use Illuminate\Contracts\Auth\Guard;
 use Twitter\Http\Requests\Request;
 
-class FollowRequest extends Request {
+class StopFollowingRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class FollowRequest extends Request {
 		$me = $auth->user();
 		$followId = $this->follow_id;
 
-		if ($me->id == $followId || $me->follows($followId))
+		if ($me->id == $followId || ! $me->follows($followId))
 		{
 			return false;
 		}
