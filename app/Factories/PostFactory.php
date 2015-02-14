@@ -29,4 +29,16 @@ class PostFactory {
 
         return $post->id;
     }
+
+    public function createReply($owner, $post, $parentId)
+    {
+        $post = $this->post->create([
+            'user_id' => $owner,
+            'post' => $post,
+            'parent_id' => $parentId
+        ]);
+
+        return $post->id;
+    }
+
 }

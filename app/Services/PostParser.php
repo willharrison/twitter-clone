@@ -32,7 +32,8 @@ class PostParser {
 
         foreach ($section as $subsection)
         {
-            if ($subsection[0] == $checkFor)
+            $firstLetter = substr($subsection, 0, 1);
+            if ($firstLetter == $checkFor)
             {
                 $list[] = substr($subsection, 1, strlen($subsection));
             }

@@ -6,7 +6,7 @@ class Post extends Model {
 
     protected $table = "posts";
 
-    protected $fillable = ['user_id', 'post'];
+    protected $fillable = ['user_id', 'post', 'parent_id'];
 
     public function user()
     {
@@ -18,6 +18,15 @@ class Post extends Model {
         return $this->hasMany('Twitter\Favorite');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo('Twitter\Post');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany('Twitter\Post', 'parent_id', 'id');
+    }
     public function reposts()
     {
         return $this->hasMany('Twitter\RePost');

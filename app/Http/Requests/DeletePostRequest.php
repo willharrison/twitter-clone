@@ -2,9 +2,8 @@
 
 use Illuminate\Contracts\Auth\Guard;
 use Twitter\Http\Requests\Request;
-use Twitter\Repositories\PostRepository;
 
-class RePostRequest extends Request {
+class DeletePostRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -13,13 +12,12 @@ class RePostRequest extends Request {
 	 */
 	public function authorize(Guard $auth)
 	{
-		if ($auth->user()->reposted($this->post_id)
-			|| $auth->user()->posted($this->post_id))
+		if ($auth->user()->posted($this->post_id))
 		{
-			return false;
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	/**

@@ -3,6 +3,7 @@
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Twitter\Commands\CreateRePost;
+use Twitter\Commands\DestroyRePost;
 use Twitter\Http\Requests;
 use Twitter\Http\Controllers\Controller;
 
@@ -26,6 +27,18 @@ class RePostController extends Controller {
 
         $this->dispatch(new CreateRePost(
             $this->me,
+            $postId
+        ));
+
+        return redirect('home');
+    }
+
+    public function postDestroy(Requests\DestroyRePostRequest $request)
+    {
+        $postId = $request->post_id;
+
+        $this->dispatch(new DestroyRePost(
+            $this->me->id,
             $postId
         ));
 

@@ -4,6 +4,8 @@ use Illuminate\Auth\Guard;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Twitter\Commands\AddPostToFavorites;
 use Twitter\Commands\CreatePost;
+use Twitter\Commands\DestroyPost;
+use Twitter\Commands\ReplyToPost;
 use Twitter\Commands\UnFavoritePost;
 use Twitter\Http\Requests;
 use Twitter\Http\Controllers\Controller;
@@ -43,6 +45,31 @@ class PostController extends Controller {
         $this->dispatch(new CreatePost(
             $this->me,
             $post
+        ));
+
+        return redirect('home');
+    }
+
+    public function postReply(Request $request)
+    {
+        $replyTo = $request->post_id;
+        $postString = $request->post;
+
+        $this->dispatch(new ReplyToPost(
+            $this->me->id,
+            $replyTo,
+            $postString
+        ));
+
+        return redirect('home');
+    }
+
+    public function postDestroy(Requests\DeletePostRequest $request)
+    {
+        $postId = $request->post_id;
+
+        $this->dispatch(new DestroyPost(
+            $postId
         ));
 
         return redirect('home');

@@ -10,7 +10,11 @@
 </head>
 <body>
 
-	<b>{{ Auth::user()->name }}</b>
+	@if (Auth::check())
+        <b>{{ Auth::user()->name }}</b>
+		<b>{{ Auth::user()->id }}</b>
+	@endif
+
 	@yield('content')
 
 </body>

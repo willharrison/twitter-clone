@@ -16,10 +16,12 @@ class CreatePostsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
+			$table->integer('parent_id')->unsigned()->nullable();
 			$table->string('post');
 			$table->timestamps();
 
 			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('parent_id')->references('id')->on('posts');
 		});
 	}
 

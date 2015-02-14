@@ -70,6 +70,32 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return false;
 	}
 
+	public function posted($id)
+	{
+		foreach ($this->posts as $post)
+		{
+			if ($post->id == $id)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function reposted($id)
+	{
+		foreach ($this->reposts as $repost)
+		{
+			if ($repost->post_id == $id)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function settings()
 	{
 		return $this->hasOne('Twitter\Settings');

@@ -51,12 +51,15 @@ class UserMentionedHandler {
 		{
 			$user = $this->userRepo->findByName($user);
 
-			$this->alertFactory->create(
-				$user->id,
-				$this->translator->get(
-					'alerts.mentioned-in-post', ['name' => $name]
-				)
-			);
+			if ($user->name != $name)
+			{
+				$this->alertFactory->create(
+					$user->id,
+					$this->translator->get(
+						'alerts.mentioned-in-post', ['name' => $name]
+					)
+				);
+			}
 		}
 		catch (\ErrorException $e)
 		{

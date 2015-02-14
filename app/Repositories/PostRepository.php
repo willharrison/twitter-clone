@@ -24,4 +24,9 @@ class PostRepository {
     {
         return $this->post->find($id);
     }
+
+    public function remove($id)
+    {
+        return $this->post->find($id)->delete();
+    }
 }
