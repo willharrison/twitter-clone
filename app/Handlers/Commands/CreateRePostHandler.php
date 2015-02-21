@@ -35,7 +35,7 @@ class CreateRePostHandler {
 		$this->factory->create($command->user->id, $command->postId);
 
 		$this->dispatcher->fire(new UserRePosted(
-			$command->user, $postOwner->id
+			$command->user, $postOwner->id, $command->postId
 		));
 	}
 

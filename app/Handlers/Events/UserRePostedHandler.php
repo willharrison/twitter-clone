@@ -30,8 +30,9 @@ class UserRePostedHandler {
 	 */
 	public function handle(UserRePosted $event)
 	{
-		$this->factory->create(
+		$this->factory->createWithPostId(
 			$event->postOwnerId,
+            $event->postId,
 			$this->translator->get(
 				'alerts.post-was-reposted', ['name' => $event->user->name]
 			)

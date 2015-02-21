@@ -10,17 +10,18 @@ class UserRePosted extends Event implements ShouldBeQueued {
 
 	use SerializesModels;
 
-	public $user, $postOwnerId;
+	public $user, $postOwnerId, $postId;
 
 	/**
 	 * Create a new event instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(User $user, $postOwnerId)
+	public function __construct(User $user, $postOwnerId, $postId)
 	{
 		$this->user = $user;
 		$this->postOwnerId = $postOwnerId;
+        $this->postId = $postId;
 	}
 
 }

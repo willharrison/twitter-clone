@@ -8,4 +8,8 @@ class HashtagMap extends Model {
 
     protected $fillable = ['hashtag_id', 'post_id'];
 
+    public function hashtag()
+    {
+        return $this->belongsTo('Twitter\Hashtag');
+    }
 }

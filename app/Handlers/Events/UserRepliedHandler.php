@@ -38,14 +38,15 @@ class UserRepliedHandler {
 	 */
 	public function handle(UserReplied $event)
 	{
-		$user = $this->userRepo->find($event->ownerId);
+		$user = $this->userRepo->find($event->user->id);
 		$name = $user->name;
-		$alertId = $this->postRepo->find($event->postId)->user->id;
+		$alertId = $this->postRepo->find($event->postId)->parent->user->id;
 
 		if ($user->id != $alertId)
 		{
-			$this->alertFactory->create(
+			$this->alertFactory->createWithPostId(
 				$alertId,
+                $event->postId,
 				$this->translator->get(
 					'alerts.post-has-reply', ['name' => $name]
 				)

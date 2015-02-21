@@ -56,7 +56,7 @@ class PostController extends Controller {
         $postString = $request->post;
 
         $this->dispatch(new ReplyToPost(
-            $this->me->id,
+            $this->me,
             $replyTo,
             $postString
         ));

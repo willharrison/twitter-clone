@@ -6,6 +6,7 @@ use Twitter\Commands\ReplyToPost;
 use Illuminate\Queue\InteractsWithQueue;
 use Twitter\Events\UserReplied;
 use Twitter\Factories\PostFactory;
+use Twitter\Repositories\PostRepository;
 
 class ReplyToPostHandler {
 
@@ -32,15 +33,16 @@ class ReplyToPostHandler {
 	 */
 	public function handle(ReplyToPost $command)
 	{
-		$this->factory->createReply(
-			$command->ownerId,
+		$postId = $this->factory->createReply(
+			$command->user->id,
 			$command->postString,
 			$command->replyTo
 		);
 
 		$this->dispatcher->fire(new UserReplied(
-			$command->ownerId,
-			$command->replyTo
+			$command->user,
+            $command->postString,
+            $postId
 		));
 	}
 

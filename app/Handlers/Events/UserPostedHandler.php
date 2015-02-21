@@ -25,14 +25,15 @@ class UserPostedHandler {
 
 		foreach ($followers as $user)
 		{
-			$this->alert($user, $name);
+			$this->alert($user, $event->postId, $name);
 		}
 	}
 
-	private function alert($user, $name)
+	private function alert($user, $postId, $name)
 	{
-		$this->alertFactory->create(
+		$this->alertFactory->createWithPostId(
 			$user->id,
+            $postId,
 			$this->translator->get(
 				'alerts.following-posted', ['name' => $name]
 			)

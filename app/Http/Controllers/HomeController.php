@@ -1,5 +1,7 @@
 <?php namespace Twitter\Http\Controllers;
 
+use Twitter\Services\Trending;
+
 class HomeController extends Controller {
 
 	/*
@@ -32,5 +34,10 @@ class HomeController extends Controller {
 	{
 		return view('home');
 	}
+
+    public function trending(Trending $trending)
+    {
+        return $trending->get(5, 100);
+    }
 
 }

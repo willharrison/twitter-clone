@@ -33,19 +33,19 @@ class UserMentionedHandler {
 		$this->userRepo = $userRepo;
 	}
 
-	public function handle(UserPosted $event)
+	public function handle($event)
 	{
 		$by = $event->user->name;
 		$mentions = $this->parser->mentionsIn($event->postString);
 
 		foreach ($mentions as $mention)
 		{
-			$this->alert($mention, $by);
+			$this->alert($mention, $by, $event->postId);
 		}
 	}
 
 	// TODO: this exception functionality can be moved to the repo
-	private function alert($user, $name)
+	private function alert($user, $name, $postId)
 	{
 		try
 		{
@@ -53,8 +53,9 @@ class UserMentionedHandler {
 
 			if ($user->name != $name)
 			{
-				$this->alertFactory->create(
+				$this->alertFactory->createWithPostId(
 					$user->id,
+                    $postId,
 					$this->translator->get(
 						'alerts.mentioned-in-post', ['name' => $name]
 					)

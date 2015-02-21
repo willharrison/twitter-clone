@@ -27,4 +27,13 @@ class AlertFactory {
             "message" => $message
         ]);
     }
+
+    public function createWithPostId($userId, $postId, $message)
+    {
+        $this->alert->create([
+            "user_id" => $userId,
+            "post_id" => $postId,
+            "message" => $message
+        ]);
+    }
 }

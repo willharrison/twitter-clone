@@ -1,19 +1,20 @@
 <?php namespace Twitter\Commands;
 
 use Twitter\Commands\Command;
+use Twitter\User;
 
 class ReplyToPost extends Command {
 
-	public $ownerId, $replyTo, $postString;
+	public $user, $replyTo, $postString;
 
 	/**
 	 * Create a new command instance.
 	 *
 	 * @return void
 	 */
-	public function __construct($ownerId, $replyTo, $postString)
+	public function __construct(User $user, $replyTo, $postString)
 	{
-		$this->ownerId = $ownerId;
+		$this->user = $user;
 		$this->replyTo = $replyTo;
 		$this->postString = $postString;
 	}

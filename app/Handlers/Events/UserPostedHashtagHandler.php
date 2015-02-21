@@ -26,7 +26,7 @@ class UserPostedHashtagHandler {
 		$this->parser = $parser;
 	}
 
-	public function handle(UserPosted $event)
+	public function handle($event)
 	{
 		$hashtags = $this->parser->hashtagsIn($event->postString);
 

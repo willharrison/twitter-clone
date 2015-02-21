@@ -39,8 +39,9 @@ class PostWasFavoritedHandler {
 
 		if ($alertId != $favoritedById)
 		{
-            $this->alertFactory->create(
+            $this->alertFactory->createWithPostId(
                 $alertId,
+                $event->post->id,
                 $this->translator->get(
                     'alerts.post-was-favorited', ['name' => $favoritedBy]
                 )

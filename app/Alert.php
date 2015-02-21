@@ -6,7 +6,7 @@ class Alert extends Model {
 
     protected $table = 'alerts';
 
-    protected $fillable = ['user_id', 'message'];
+    protected $fillable = ['user_id', 'message', 'post_id'];
 
     public function user()
     {
