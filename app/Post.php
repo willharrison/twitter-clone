@@ -36,4 +36,9 @@ class Post extends Model {
     {
         return $this->belongsToMany('Twitter\HashtagMap');
     }
+
+    public function images()
+    {
+        return $this->hasMany('Twitter\Image');
+    }
 }

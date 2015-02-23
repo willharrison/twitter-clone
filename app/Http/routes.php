@@ -29,5 +29,6 @@ Route::controllers([
     'settings' => 'SettingsController',
     'subscribe' => 'SubscribeController',
     'post' => 'PostController',
-    'repost' => 'RePostController'
+    'repost' => 'RePostController',
+    'profile' => 'ProfileController'
 ]);

@@ -28,7 +28,7 @@ class AddPostIdToAlerts extends Migration {
 	{
 		Schema::table('alerts', function(Blueprint $table)
 		{
-            $table->dropColumn('post_id');
+            $table->dropForeign('alerts_post_id_foreign');
 		});
 	}
 

@@ -27,5 +27,7 @@
     </form>
 
     {{ $user }}
+    <img src="{{ $user->profileImage() }}"/>
+
 
 @endsection

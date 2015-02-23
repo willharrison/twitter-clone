@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Psy\Exception\ErrorException;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
@@ -135,5 +136,26 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	{
 		return $this->belongsToMany('Twitter\User', 'user_relations', 'follower_id', 'followed_id');
 	}
+
+    public function profile()
+    {
+        return $this->hasOne('Twitter\Profile');
+    }
+
+    public function profileImage()
+    {
+        $webpath = '/images/no-thumb.png';
+
+        try
+        {
+            $contents = explode('/', $this->profile->image->large);
+            $filename = array_pop($contents);
+            $directory = array_pop($contents);
+            $webpath = implode('/', ['images', $directory, $filename]);
+        }
+        catch (\ErrorException $e) {}
+
+        return $webpath;
+    }
 
 }
