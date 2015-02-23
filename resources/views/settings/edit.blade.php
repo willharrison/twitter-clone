@@ -22,17 +22,24 @@
     <form action="/settings/edit" method="post">
 
         <input type="hidden" value="{{ csrf_token() }}" name="_token"/>
+
         <div class="form-group">
-            <label class="col-md-4 control-label">E-Mail Address</label>
+            <label class="col-md-4 control-label">Language</label>
             <div class="col-md-6">
-                <input type="email" class="form-control" name="email" value="{{ $request->user()->email }}">
+                <select name="language">
+                    <option value="en">English</option>
+                </select>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label">Full Name</label>
+            <label class="col-md-4 control-label">Country</label>
             <div class="col-md-6">
-                <input type="text" class="form-control" name="full_name" value="{{ $request->user()->settings->full_name }}">
+                <select name="country">
+                    <option value="us">United States</option>
+                    <option value="gb">United Kingdom</option>
+                    <option value="ca">Canada</option>
+                </select>
             </div>
         </div>
 

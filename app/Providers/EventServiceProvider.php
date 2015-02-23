@@ -32,7 +32,10 @@ class EventServiceProvider extends ServiceProvider {
 			'Twitter\Handlers\Events\UserRepliedHandler@handle',
 			'Twitter\Handlers\Events\UserMentionedHandler@handle',
 			'Twitter\Handlers\Events\UserPostedHashtagHandler@handle'
-		]
+		],
+        'Twitter\Events\MessageSent' => [
+            'Twitter\Handlers\Events\MessageAlert@handle'
+        ]
 	];
 
 	/**

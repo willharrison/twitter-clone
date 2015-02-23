@@ -22,7 +22,8 @@ class SettingsRequest extends Request {
 	public function rules()
 	{
 		return [
-			'email' => 'required|unique:users'
+            'language' => 'required',
+            'country' => 'required'
 		];
 	}
 

@@ -30,5 +30,6 @@ Route::controllers([
     'subscribe' => 'SubscribeController',
     'post' => 'PostController',
     'repost' => 'RePostController',
+    'message' => 'MessageController',
     'profile' => 'ProfileController'
 ]);

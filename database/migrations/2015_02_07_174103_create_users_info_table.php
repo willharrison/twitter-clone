@@ -17,7 +17,7 @@ class CreateUsersInfoTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->string('language')->default('en');
-			$table->string('country')->default('United States');
+			$table->string('country')->default('us');
 			$table->timestamps();
 
 			$table->unique('user_id');

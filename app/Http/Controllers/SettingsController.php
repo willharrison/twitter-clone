@@ -40,7 +40,7 @@ class SettingsController extends Controller {
 		// TODO this needs to be moved to a repository
 		//
 		// ~~~~~~~~~~~~~~~
-		$postData = $request->only(['full_name']);
+		$postData = $request->only(['language', 'country']);
 		$settings = $request->user()->settings;
 		$settings->fill($postData);
 		$settings->save();
