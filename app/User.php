@@ -142,13 +142,31 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasOne('Twitter\Profile');
     }
 
-    public function profileImage()
+    public function profileImage($size = 'small')
     {
         $webpath = '/images/no-thumb.png';
 
         try
         {
-            $contents = explode('/', $this->profile->image->small);
+            $contents = null;
+            switch ($size)
+            {
+                case 'small':
+                    $contents = explode('/', $this->profile->image->small);
+                    break;
+                case 'tiny':
+                    $contents = explode('/', $this->profile->image->tiny);
+                    break;
+                case 'medium':
+                    $contents = explode('/', $this->profile->image->medium);
+                    break;
+                case 'large';
+                    $contents = explode('/', $this->profile->image->large);
+                    break;
+                case 'actual':
+                    $contents = explode('/', $this->profile->image->actual);
+                    break;
+            }
             $filename = array_pop($contents);
             $directory = array_pop($contents);
             $webpath = implode('/', ['images', $directory, $filename]);
