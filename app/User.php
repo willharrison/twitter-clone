@@ -148,7 +148,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         try
         {
-            $contents = explode('/', $this->profile->image->large);
+            $contents = explode('/', $this->profile->image->small);
             $filename = array_pop($contents);
             $directory = array_pop($contents);
             $webpath = implode('/', ['images', $directory, $filename]);
