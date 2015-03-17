@@ -22,13 +22,13 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="/home"><i class="fa fa-home"></i> Home</a></li>
                     <li><a href="#about"><i class="fa fa-bell"></i> Notifications</a></li>
                     <li><a href="#contact"><i class="fa fa-envelope"></i> Messages</a></li>
                 </ul>
                 <div class="navbar-form navbar-right">
                         <div class="form-group">
-                            <input type="password" placeholder="Search" class="form-control">
+                            <input type="text" placeholder="Search" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                         <img class="small-top-profile" src="{{ Auth::user()->profileImage() }}"/>
@@ -41,11 +41,6 @@
     @endif
 
     <div class="container">
-
-        @if (Auth::check())
-            <b>{{ Auth::user()->name }}</b>
-            <b>{{ Auth::user()->id }}</b>
-        @endif
 
         @yield('content')
 

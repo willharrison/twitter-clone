@@ -30,14 +30,9 @@ class HomeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Trending $trending)
 	{
-		return view('home');
+		return view('home')->withTrending($trending->get(5, 100));
 	}
-
-    public function trending(Trending $trending)
-    {
-        return $trending->get(5, 100);
-    }
 
 }

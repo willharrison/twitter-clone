@@ -1,6 +1,8 @@
 @import "bootstrap";
 @import "font-awesome";
 
+$primary-blue: #337ab7;
+
 .small-top-profile {
   width: 32px;
   height: 32px;
@@ -8,5 +10,102 @@
 }
 
 .navbar {
-  border-bottom: 2px solid #337ab7;
+  border-bottom: 2px solid $primary-blue;
+}
+
+.home-profile {
+  width: 68px;
+  border-radius: 10px;
+  border: 3px solid white;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.trending {
+
+  padding: 15px;
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  color: #9d9d9d;
+
+  .big {
+    font-size: 19px;
+    font-weight: 500;
+  }
+}
+
+.font-black {
+  color: #000000;
+}
+
+.side-container {
+  padding: 15px;
+  padding-top: 100px;
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  color: #9d9d9d;
+  margin-bottom: 20px;
+
+  background: linear-gradient(to bottom, $primary-blue 0%,$primary-blue 50%,#000000 50%,white 50%,white 100%);
+
+  .top {
+    display: block;
+    vertical-align: bottom;
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 15px;
+
+    .row:first-child {
+      width: 70px;
+    }
+  }
+
+  .no-top {
+    margin-top: -3px;
+  }
+
+  .row {
+    width: 30%;
+    margin: 0;
+    display: inline-block;
+
+    &.bottom {
+      vertical-align: bottom;
+      span {
+        display:block;
+        margin: .5px;
+      }
+    }
+
+    a, a:visited{
+      color: #9d9d9d;
+    }
+
+    a:hover, a:active {
+      text-decoration: none;
+      color: $primary-blue;
+    }
+
+    .caps {
+      text-transform: uppercase;
+    }
+
+    .small {
+      font-size: 11px;
+    }
+
+    .medium {
+      font-size: 12px;
+      margin-top: -10px;
+    }
+
+    .big-link {
+      color: $primary-blue;
+      font-size: 19px;
+      font-weight: 500;
+      margin-top: -10px;
+    }
+  }
 }
