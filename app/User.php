@@ -104,7 +104,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function posts()
 	{
-		return $this->hasMany('Twitter\Post');
+		return $this->hasMany('Twitter\Post')->orderBy('created_at', 'DESC');
 	}
 
 	public function reposts()

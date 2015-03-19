@@ -33,7 +33,7 @@ class SubscribeController extends Controller {
 
 		$this->dispatch($command);
 
-		return redirect('home');
+		return redirect()->back();
 	}
 
 	public function postUnfollow(Requests\StopFollowingRequest $request)
@@ -45,7 +45,7 @@ class SubscribeController extends Controller {
 
 		$this->dispatch($command);
 
-		return redirect('home');
+		return redirect()->back();
 	}
 
 	public function postMute(Requests\MuteRequest $request)

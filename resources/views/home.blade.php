@@ -2,14 +2,14 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="col-md-4">
+    <div class="container home">
+        <div class="col-xs-4">
             <div class="side-container">
                 <div class="top">
                     <div class="row">
                         <img class="home-profile" src="{{ Auth::user()->profileImage('large') }}"/>
                     </div>
-                    <div class="row bottom">
+                    <div class="row bottom home-name">
                         <span class="font-black">{{ Auth::user()->profile->display_name }}</span>
                         <span class="medium">{{ '@' . Auth::user()->name }}</span>
                     </div>
@@ -46,7 +46,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-xs-8">
 
             <form action="post/create" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>

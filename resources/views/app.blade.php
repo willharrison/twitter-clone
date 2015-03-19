@@ -10,16 +10,9 @@
 <body>
 
     @if (Auth::check())
-    <nav class="navbar navbar navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
+    <nav class="navbar navbar-fixed-top white">
+        <div class="container-full container">
+
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="/home"><i class="fa fa-home"></i> Home</a></li>
@@ -33,18 +26,12 @@
                         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                         <img class="small-top-profile" src="{{ Auth::user()->profileImage() }}"/>
                 </div>
-                <ul class="nav navbar-right">
-                </ul>
             </div><!--/.navbar-collapse -->
         </div>
     </nav>
     @endif
 
-    <div class="container">
-
-        @yield('content')
-
-    </div>
+    @yield('content')
 
 </body>
 </html>
