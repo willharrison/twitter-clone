@@ -30,7 +30,11 @@ class RePostController extends Controller {
             $postId
         ));
 
-        return redirect('home');
+        return response()->json([
+            'success' => true,
+            'data' => 'RePost created!',
+            200
+        ]);
     }
 
     public function postDestroy(Requests\DestroyRePostRequest $request)
@@ -42,6 +46,10 @@ class RePostController extends Controller {
             $postId
         ));
 
-        return redirect('home');
+        return response()->json([
+            'success' => true,
+            'data' => 'RePost removed!',
+            200
+        ]);
     }
 }

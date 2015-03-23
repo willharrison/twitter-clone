@@ -144,7 +144,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function profileImage($size = 'small')
     {
-        $webpath = '/images/no-thumb.png';
+        $webpath = 'images/no-thumb.png';
 
         try
         {

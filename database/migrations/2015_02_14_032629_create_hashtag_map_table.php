@@ -20,7 +20,7 @@ class CreateHashtagMapTable extends Migration {
 			$table->timestamps();
 
 			$table->foreign('hashtag_id')->references('id')->on('hashtag_index');
-			$table->foreign('post_id')->references('id')->on('posts');
+			$table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
 		});
 	}
 

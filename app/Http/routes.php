@@ -20,7 +20,9 @@ Route::get('home', 'HomeController@index');
 Route::get('trending', 'HomeController@trending');
 
 Route::get('{user}', 'UserController@show');
-
+Route::get('{user}/favorites', 'UserController@showFavorites');
+Route::get('{user}/followers', 'UserController@showFollowers');
+Route::get('{user}/following', 'UserController@showFollowing');
 Route::get('{user}/status/{id}', 'PostController@getShow');
 
 Route::controllers([

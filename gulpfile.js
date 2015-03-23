@@ -2,19 +2,9 @@ var elixir = require('laravel-elixir');
 
 var paths = {
     'bootstrap': './bower_components/bootstrap-sass-official/assets/stylesheets',
-    'fontawesome': './bower_components/fontawesome'
+    'fontawesome': './bower_components/fontawesome',
+    'jquery': './bower_components/jquery/dist'
 }
-
-/*
- |--------------------------------------------------------------------------
- | Elixir Asset Management
- |--------------------------------------------------------------------------
- |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
- | for your Laravel application. By default, we are compiling the Less
- | file for our application, as well as publishing vendor resources.
- |
- */
 
 elixir(function(mix) {
     mix.sass("app.scss", "public/css", {
@@ -22,7 +12,18 @@ elixir(function(mix) {
             paths.bootstrap,
             paths.fontawesome + '/scss'
         ]
-    })
-    mix.version("public/css/app.css");
+    });
+    mix.styles([
+        'app.css'
+    ], 'public/css/app-compiled.css', 'public/css');
+    mix.version("public/css/app-compiled.css");
     mix.copy(paths.fontawesome + '/fonts', 'public/build/fonts');
+    mix.copy('resources/assets/js/ckeditor', 'public/js/ckeditor/');
+    mix.scripts([
+        '../../../' + paths.jquery + '/jquery.js',
+        '../../../' + paths.bootstrap + '/../javascripts/bootstrap.js',
+        'modalPosition.js',
+        'helperFunctions.js',
+        'profile.js'
+    ], 'public/js/app.js', 'resources/assets/js');
 });

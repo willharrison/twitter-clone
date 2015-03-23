@@ -1,28 +1,22 @@
 <?php namespace Twitter\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Twitter\Services\PostsGetter;
 use Twitter\Services\Trending;
 
 class HomeController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders your application's "dashboard" for users that
-	| are authenticated. Of course, you are free to change or remove the
-	| controller as you wish. It is just here to get your app started!
-	|
-	*/
+    protected $getter;
 
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(PostsGetter $getter)
 	{
 		$this->middleware('auth');
+        $this->getter = $getter;
 	}
 
 	/**
@@ -30,9 +24,16 @@ class HomeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index(Trending $trending)
+	public function index(
+        Request $request,
+        Trending $trending,
+        PostsGetter $getter)
 	{
-		return view('home')->withTrending($trending->get(5, 100));
+        $postCount = count($this->getter->getAll($request->user()->id));
+		return view('home')
+            ->withTrending($trending->get(5, 100))
+            ->withStatuses($getter->followingPost($request->user()->id))
+            ->with('postCount', $postCount);
 	}
 
 }

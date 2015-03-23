@@ -15,7 +15,7 @@ class AddPostIdToAlerts extends Migration {
 		Schema::table('alerts', function(Blueprint $table)
 		{
             $table->integer('post_id')->unsigned()->nullable();
-            $table->foreign('post_id')->references('id')->on('posts');
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
 		});
 	}
 

@@ -25,6 +25,25 @@ class PostParser {
         return $this->parse($post, $this->hashtagMark);
     }
 
+    public function linkify($post, $checkFor, $url = '')
+    {
+        $postArray = explode(' ', $post);
+        $newPost = [];
+
+        foreach ($postArray as $section)
+        {
+            $firstLetter = substr($section, 0, 1);
+            if ($firstLetter == $checkFor)
+            {
+                $chop = substr($section, 1, strlen($section));
+                $section = "<span class=\"primary-blue\">{$checkFor}</span><a href=\"{$url}/{$chop}\">{$chop}</a>";
+            }
+            array_push($newPost, $section);
+        }
+
+        return implode(' ', $newPost);
+    }
+
     private function parse($post, $checkFor)
     {
         $section = explode(' ', $post);

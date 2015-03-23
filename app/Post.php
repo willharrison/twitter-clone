@@ -1,6 +1,7 @@
 <?php namespace Twitter;
 
 use Illuminate\Database\Eloquent\Model;
+use Twitter\Services\PostParser;
 
 class Post extends Model {
 

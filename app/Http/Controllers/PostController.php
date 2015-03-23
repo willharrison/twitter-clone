@@ -12,20 +12,25 @@ use Twitter\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Twitter\Repositories\PostRepository;
+use Twitter\Services\PostParser;
 use Twitter\User;
 
 class PostController extends Controller {
 
     use DispatchesCommands;
 
-    protected $auth, $me, $repo;
+    protected $auth, $me, $repo, $parser;
 
-    public function __construct(Guard $auth, PostRepository $repo)
+    public function __construct(
+        Guard $auth,
+        PostRepository $repo,
+        PostParser $parser)
     {
         $this->middleware('auth');
         $this->me = $auth->user();
         $this->auth = $auth;
         $this->repo = $repo;
+        $this->parser = $parser;
     }
 
     public function getShow(User $user, $id)
@@ -40,14 +45,24 @@ class PostController extends Controller {
 
     public function postCreate(Requests\CreatePostRequest $request)
     {
-        $post = $request->post;
+        $post = trim($request->post);
 
         $this->dispatch(new CreatePost(
             $this->me,
             $post
         ));
 
-        return redirect('home');
+        $latest = $this->repo->latest();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'id' => $latest->id,
+                'created' => $latest->created_at->toDateTimeString(),
+                'post' => $this->parser->linkify($latest->post, '@')
+            ],
+            200
+        ]);
     }
 
     public function postReply(Request $request)
@@ -72,7 +87,11 @@ class PostController extends Controller {
             $postId
         ));
 
-        return redirect('home');
+        return response()->json([
+            'success' => true,
+            'data' => 'Post removed!',
+            200
+        ]);
     }
 
     public function postFavorite(Requests\FavoriteRequest $request)
@@ -85,7 +104,11 @@ class PostController extends Controller {
             $post
         ));
 
-        return redirect('home');
+        return response()->json([
+            'success' => true,
+            'data' => 'Favorite added!',
+            200
+        ]);
     }
 
     public function postUnfavorite(Requests\UnFavoriteRequest $request)
@@ -98,6 +121,10 @@ class PostController extends Controller {
             $postId
         ));
 
-        return redirect('home');
+        return response()->json([
+            'success' => true,
+            'data' => 'Favorite removed!',
+            200
+        ]);
     }
 }

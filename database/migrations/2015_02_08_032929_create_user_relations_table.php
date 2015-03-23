@@ -19,8 +19,8 @@ class CreateUserRelationsTable extends Migration {
 			$table->integer('followed_id')->unsigned();
 			$table->timestamps();
 
-			$table->foreign('follower_id')->references('id')->on('users');
-			$table->foreign('followed_id')->references('id')->on('users');
+			$table->foreign('follower_id')->references('id')->on('users')->onDelete('cascade');
+			$table->foreign('followed_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 
