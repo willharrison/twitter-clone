@@ -14,7 +14,7 @@
                 <span class="big">Posts</span>
             </div>
             @if ($posts->isEmpty())
-                <div class="big text-center" style="padding-top: 10px;">
+                <div class="big text-center first-post" style="padding-top: 10px;">
                     Say something!
                 </div>
             @endif

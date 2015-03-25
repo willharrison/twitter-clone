@@ -1,150 +1,59 @@
 $(function() {
 
-    function updateEditable($this) {
-        var elem = document.getElementById('modal-reply-box');
-        if ($this.hasClass('post-editable')) {
-            elem = document.getElementsByClassName('post-editable')[0];
-        }
-        var newHtml = colorMentions(colorInvalid($this.text(), elem));
-        $this.html(newHtml);
-        setEndOfContenteditable(elem);
-        var newValue = 140 - $this.text().length;
-        if (newValue < 0) {
-            if ($this.hasClass('post-editable')) {
-                $('.create-post-count-down').css({color: '#d40d12'}).text(newValue);
-                $('.submit-post').prop('disabled', true);
-            } else {
-                $('.modal-count-down').css({color: '#d40d12'}).text(newValue);
-                $('.modal-submit-post').prop('disabled', true);
-            }
-        } else {
-            if ($this.hasClass('post-editable')) {
-                $('.create-post-count-down').css({color: '#333'}).text(newValue);
-                $('.submit-post').prop('disabled', false);
-            } else {
-                $('.modal-count-down').css({color: '#333'}).text(newValue);
-                $('.modal-submit-post').prop('disabled', false);
-            }
-        }
-    }
+    var $modal = $('#reply');
+    var $modalBody = $('.modal-body');
+    var $modalTitle = $('.modal-title');
+    var $modalContent = $modalBody.children('div:first-child');
+    var $modalPostBox = $('#modal-reply-box');
+    var $modalCount = $('.modal-count-down');
+    var $modalSubmit = $('.modal-submit-post');
 
-    $('.post-editable').on('keyup', function() {
-        updateEditable($(this));
-        setTimeout(updateEditable.bind(null, $(this)), 100);
-    });
+    var $postToUser = $('.tweet-to');
+    var $submitPost = $('.submit-post');
+    var $deletePost = $('.delete-post');
 
-    $('.post-editable').on('change', function() {
-        updateEditable($(this));
-        setTimeout(updateEditable.bind(null, $(this)), 100);
-    });
+    var $reply = $('.fa-reply');
+    var $repost = $('.fa-retweet');
+    var $favorite = $('.fa-star');
 
-    $('#modal-reply-box').on('keyup', function() {
-        updateEditable($(this));
-        setTimeout(updateEditable.bind(null, $(this)), 100);
-    });
+    var $contentEditable = $('div[contenteditable]');
+    var $postBox = $('.post-editable, #modal-reply-box');
+    var $follow = $('.follow-options');
 
-    $('#modal-reply-box').on('change', function() {
-        updateEditable($(this));
-        setTimeout(updateEditable.bind(null, $(this)), 100);
-    });
-
-    var newPost = function() {
-        var $this = $('.submit-post');
-        var post = $this.parents('.post-create').find('.post-editable').text();
-        $.post("/post/create",
-            { '_token': csrf_token, 'post': post },
-            function(success) {
-                $this.blur();
-                $this.parents('.post-create').find('.post-editable').html('');
-                $this.parent('div').children('.create-post-count-down').html('140');
-                var clone = $('.cloneable-post').clone(true, true);
-                clone.removeClass('cloneable-post').addClass('post');
-                clone.find('.post-content').html(success.data.post);
-                clone.find('.post-options').data('post-id', success.data.id);
-                clone.find('.created-at').html(success.data.created);
-                $this.parents('.posts').find('.post-create').after(clone.addClass('new-post'));
-                $('.new-post').hide().slideDown().removeClass('new-post');
-                increaseCount('.post-count');
-            }
-        );
-    }
-
-    $('.follow-options').on('click', 'button.click-unfollow', function() {
+    $repost.click(function() {
         var $this = $(this);
-        $.post("/subscribe/unfollow",
-            { '_token': csrf_token, 'follow_id': $this.data('user-id')},
-            function(success) {
-                $this.addClass('click-follow btn-default')
-                    .removeClass('click-unfollow btn-danger');
-                $this.html('<i class="fa fa-user-plus"></i> Follow');
-            }
+        var url = $this.hasClass('reposted') ?
+            '/repost/destroy' :
+            '/repost/store';
+
+        $.post(url, { '_token': csrf_token, 'post_id': postId($this) },
+            function() { toggleRepost($this); }
         );
     });
 
-    $('.follow-options').on('click', 'button.click-follow', function() {
-        var $this = $(this);
-        $.post("/subscribe/follow",
-            { '_token': csrf_token, 'follow_id': $this.data('user-id')},
-            function(success) {
-                $this.removeClass('click-follow btn-default')
-                    .addClass('click-unfollow btn-danger');
-                $this.html('<i class="fa fa-user-times"></i> Unfollow');
-            }
-        );
-    });
-
-    $('div[contenteditable]').keydown(function(e) {
-        if (e.keyCode === 13) {
-            newPost();
-            return false;
-        }
-    });
-
-    $('.submit-post').on('click', function() {
-        newPost();
-    });
-
-    $('#modal-reply-box').change(function() {
-        var footer = $(this).parents('.modal-footer');
-        var current = parseInt(footer.find('.modal-count-down').text());
-        var newVal = current - $(this).val().length;
-        footer.find('.modal-count-down').text(newVal);
-    });
-
-    $('.modal-submit-post').click(function() {
-        var $this = $(this);
-        var post = $this.parents('.modal-footer').find('#modal-reply-box').text();
-        var postId = $('.modal-body').children('div:first-child') .data('post-id');
-        $.post("/post/reply",
-            { '_token': csrf_token, 'post': post, 'post_id': postId },
-            function() {
-                $('#reply').modal('hide');
-            }
-        );
-    });
-
-    $('.fa-reply').click(function() {
+    $reply.click(function() {
         var post = $(this).parents('.post');
         var text = post.find('.post-content').text();
         var html = post.html();
         var postId = post.find('.post-options').data('post-id');
-        $('.modal-title').text("Reply");
-        $('.modal-body').show();
-        $('.modal-body').children('div:first-child')
-            .data('post-id', postId)
-            .html(html);
-        $('.modal-body').find('.post-options').remove();
+        $modalTitle.text("Reply");
+        $modalBody.show();
+        $modalContent.data('post-id', postId) .html(html);
+        $modalBody.find('.post-options').remove();
     });
 
-    $('.tweet-to').click(function() {
-        $('.modal-title').text($(this).find('a').text());
-        $('.modal-body').hide();
-        $('.modal-footer').find('#modal-reply-box').text('@text ');
-        updateEditable($('#modal-reply-box'));
-        $('#modal-reply-box').focus();
+    $favorite.click(function() {
+        var $this = $(this);
+        var url = $this.hasClass('favorited') ?
+            '/post/unfavorite' :
+            '/post/favorite';
+
+        $.post(url, { '_token': csrf_token, 'post_id': postId($this) },
+            function() { toggleFavorite($this); }
+        );
     });
 
-    $('.delete-post').click(function() {
+    $deletePost.click(function() {
         var $this = $(this);
         $.post("/post/destroy",
             { '_token': csrf_token, 'post_id': postId($this) },
@@ -157,27 +66,68 @@ $(function() {
         );
     });
 
-    $('.fa-retweet').click(function() {
-        var $this = $(this);
-        var url = $this.hasClass('reposted') ?
-            '/repost/destroy' :
-            '/repost/store';
+    $postToUser.click(function() {
+        var user = $(this).text().split('@')[1];
+        $modalTitle.text($(this).find('a').text());
+        $modalBody.hide();
+        $modalPostBox.text('@' + user + '&nbsp;');
+        updateEditable($modalPostBox);
+    });
 
-        $.post(url, { '_token': csrf_token, 'post_id': postId($this) },
-            function() { toggleRepost($this); }
+    $modalPostBox.change(function() {
+        decreaseCount($modalCount);
+    });
+
+    $modalSubmit.click(function() {
+        var $this = $(this);
+        var post = $modalPostBox.text();
+        var postId = $modalContent.data('post-id');
+        var url = typeof postId !== 'undefined' ? '/post/reply' : '/post/create';
+        $.post(url,
+            { '_token': csrf_token, 'post': post, 'post_id': postId },
+            function() {
+                $modal.modal('hide');
+            }
         );
     });
 
+    $follow.on('click', 'button.click-unfollow, button.click-follow',
+        function() {
+            var $this = $(this);
+            var url = $(this).hasClass('click-follow') ?
+                '/subscribe/follow' :
+                '/subscribe/unfollow';
 
-    $('.fa-star').click(function() {
-        var $this = $(this);
-        url = $this.hasClass('favorited') ?
-            '/post/unfavorite' :
-            '/post/favorite';
+            $.post(url, {'_token': csrf_token, 'follow_id': $this.data('user-id')},
+                function (success) {
+                    if (url.indexOf('unfollow') > -1) {
+                        $this.addClass('click-follow btn-default')
+                            .removeClass('click-unfollow btn-danger');
+                        $this.html('<i class="fa fa-user-plus"></i> Follow');
+                    } else {
+                        $this.removeClass('click-follow btn-default')
+                            .addClass('click-unfollow btn-danger');
+                        $this.html('<i class="fa fa-user-times"></i> Unfollow');
+                    }
+                }
+            );
+        }
+    );
 
-        $.post(url, { '_token': csrf_token, 'post_id': postId($this) },
-            function() { toggleFavorite($this); }
-        );
+    $contentEditable.keydown(function(e) {
+        if (e.keyCode === 13) {
+            newPost();
+            return false;
+        }
+    });
+
+    $submitPost.on('click', function() {
+        newPost();
+    });
+
+    $postBox.on('keydown change', function() {
+        updateEditable($(this));
+        setTimeout(updateEditable.bind(null, $(this)), 100);
     });
 
 });

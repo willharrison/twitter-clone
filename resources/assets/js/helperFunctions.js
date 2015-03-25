@@ -90,4 +90,53 @@
         }
     }
 
+    window.updateEditable = function($this) {
+        var elem = document.getElementById('modal-reply-box');
+        if ($this.hasClass('post-editable')) {
+            elem = document.getElementsByClassName('post-editable')[0];
+        }
+        var newHtml = colorMentions(colorInvalid($this.text(), elem));
+        $this.html(newHtml);
+        setEndOfContenteditable(elem);
+        var newValue = 140 - $this.text().length;
+        if (newValue < 0) {
+            if ($this.hasClass('post-editable')) {
+                $('.create-post-count-down').css({color: '#d40d12'}).text(newValue);
+                $('.submit-post').prop('disabled', true);
+            } else {
+                $('.modal-count-down').css({color: '#d40d12'}).text(newValue);
+                $('.modal-submit-post').prop('disabled', true);
+            }
+        } else {
+            if ($this.hasClass('post-editable')) {
+                $('.create-post-count-down').css({color: '#333'}).text(newValue);
+                $('.submit-post').prop('disabled', false);
+            } else {
+                $('.modal-count-down').css({color: '#333'}).text(newValue);
+                $('.modal-submit-post').prop('disabled', false);
+            }
+        }
+    }
+
+    window.newPost = function() {
+        var $this = $('.submit-post');
+        var post = $this.parents('.post-create').find('.post-editable').text();
+        $.post("/post/create",
+            { '_token': csrf_token, 'post': post },
+            function(success) {
+                $this.blur();
+                $this.parents('.post-create').find('.post-editable').html('');
+                $this.parent('div').children('.create-post-count-down').html('140');
+                var clone = $('.cloneable-post').clone(true, true);
+                clone.removeClass('cloneable-post').addClass('post');
+                clone.find('.post-content').html(success.data.post);
+                clone.find('.post-options').data('post-id', success.data.id);
+                clone.find('.created-at').html(success.data.created);
+                $this.parents('.posts').find('.post-create').after(clone.addClass('new-post'));
+                $('.new-post').hide().slideDown().removeClass('new-post');
+                increaseCount('.post-count');
+            }
+        );
+    }
+
 })(jQuery);

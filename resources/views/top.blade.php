@@ -6,9 +6,10 @@
     <div class="col-xs-3 profile-pic">
         <img src="/{{ $user->profileImage('large') }}"/>
         <p>
-                <span class="big margin-left">
-                    {{ $user->display_name }}
-                </span>
+            <span class="big margin-left">{{ $user->display_name }}</span>
+            @if($user->follows(Auth::user()->id))
+                <span class="caps small">Follows You</span>
+            @endif
         <p>
             <span class="margin-left grey">{{ '@' . $user->name }}</span>
         </p>
