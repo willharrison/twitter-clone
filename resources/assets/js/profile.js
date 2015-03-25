@@ -69,6 +69,30 @@ $(function() {
         );
     }
 
+    $('.follow-options').on('click', 'button.click-unfollow', function() {
+        var $this = $(this);
+        $.post("/subscribe/unfollow",
+            { '_token': csrf_token, 'follow_id': $this.data('user-id')},
+            function(success) {
+                $this.addClass('click-follow btn-default')
+                    .removeClass('click-unfollow btn-danger');
+                $this.html('<i class="fa fa-user-plus"></i> Follow');
+            }
+        );
+    });
+
+    $('.follow-options').on('click', 'button.click-follow', function() {
+        var $this = $(this);
+        $.post("/subscribe/follow",
+            { '_token': csrf_token, 'follow_id': $this.data('user-id')},
+            function(success) {
+                $this.removeClass('click-follow btn-default')
+                    .addClass('click-unfollow btn-danger');
+                $this.html('<i class="fa fa-user-times"></i> Unfollow');
+            }
+        );
+    });
+
     $('div[contenteditable]').keydown(function(e) {
         if (e.keyCode === 13) {
             newPost();
@@ -105,10 +129,19 @@ $(function() {
         var html = post.html();
         var postId = post.find('.post-options').data('post-id');
         $('.modal-title').text("Reply");
+        $('.modal-body').show();
         $('.modal-body').children('div:first-child')
             .data('post-id', postId)
             .html(html);
         $('.modal-body').find('.post-options').remove();
+    });
+
+    $('.tweet-to').click(function() {
+        $('.modal-title').text($(this).find('a').text());
+        $('.modal-body').hide();
+        $('.modal-footer').find('#modal-reply-box').text('@text ');
+        updateEditable($('#modal-reply-box'));
+        $('#modal-reply-box').focus();
     });
 
     $('.delete-post').click(function() {

@@ -7,21 +7,23 @@
         <img src="/{{ $user->profileImage('large') }}"/>
         <p>
                 <span class="big margin-left">
-                @if (is_null($user->profile->display_name))
-                        {{ $user->name }}
-                    @else
-                        {{ $user->profile->display_name }}
-                    @endif
+                    {{ $user->display_name }}
                 </span>
         <p>
             <span class="margin-left grey">{{ '@' . $user->name }}</span>
         </p>
+        @if ($user->profile->tagline)
         <p>
             <span class="margin-left">{{ $user->profile->tagline }}</span>
         </p>
+        @endif
         <ul class="margin-left">
-            <li><div><i class="grey fa fa-map-marker"></i> <span>{{ $user->profile->location }}</span></div></li>
-            <li><div><i class="grey fa fa-link"></i> <span>{{ $user->profile->website }}</span></div></li>
+            @if ($user->profile->location)
+                <li><div><i class="grey fa fa-map-marker"></i> <span>{{ $user->profile->location }}</span></div></li>
+            @endif
+            @if ($user->profile->website)
+                <li><div><i class="grey fa fa-link"></i> <span>{{ $user->profile->website }}</span></div></li>
+            @endif
             <li><div><i class="grey fa fa-clock-o"></i> <span>{{ $user->created_at }}</span></div></li>
         </ul>
         </p>
@@ -60,23 +62,15 @@
             </a>
         </div>
     </div>
-    <div class="col-xs-3 right vertical-center-follow">
+    <div class="col-xs-3 right vertical-center-follow follow-options">
 
         @if (Auth::user()->id == $user->id)
             <a href="/profile/edit" class="btn btn-default">Edit Profile</a>
         @else
             @if (Auth::user()->follows($user->id))
-                <form action="subscribe/unfollow" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                    <input type="hidden" name="follow_id" value="{{ $user->id }}"/>
-                    <button type="submit" class="btn btn-danger">Unfollow</button>
-                </form>
+                <button class="btn btn-danger click-unfollow" data-user-id="{{ $user->id }}"><i class="fa fa-user-times"></i> Unfollow</button>
             @else
-                <form action="subscribe/follow" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                    <input type="hidden" name="follow_id" value="{{ $user->id }}"/>
-                    <button type="submit" class="btn btn-default"><i class="fa fa-user-plus"></i> Follow</button>
-                </form>
+                <button class="btn btn-default click-follow" data-user-id="{{ $user->id }}"><i class="fa fa-user-plus"></i> Follow</button>
             @endif
         @endif
 

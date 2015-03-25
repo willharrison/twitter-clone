@@ -46,18 +46,18 @@ class UserController extends Controller {
     public function showFollowers(User $user)
     {
         $postCount = count($this->getter->getAll($user->id));
-        return view('users.followers')
+        return view('users.follow')
             ->withUser($user)
-            ->withFollowers($user->followers)
+            ->withFollow($user->followers)
             ->with('postCount', $postCount);
     }
 
     public function showFollowing(User $user)
     {
         $postCount = count($this->getter->getAll($user->id));
-        return view('users.following')
+        return view('users.follow')
             ->withUser($user)
-            ->withFollowing($user->following)
+            ->withFollow($user->following)
             ->with('postCount', $postCount);
     }
 

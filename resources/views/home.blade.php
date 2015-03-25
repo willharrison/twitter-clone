@@ -11,7 +11,7 @@
                         <img class="home-profile" src="{{ asset(Auth::user()->profileImage('large')) }}"/>
                     </div>
                     <div class="row bottom home-name">
-                        <span class="font-black">{{ Auth::user()->profile->display_name }}</span>
+                        <span class="font-black">{{ Auth::user()->display_name }}</span>
                         <span class="medium">{{ '@' . Auth::user()->name }}</span>
                     </div>
                 </div>
@@ -78,11 +78,7 @@
                     <div>
                         <span class="post-name">
                             <a href="/{{ $post->user->name }}">
-                        @if (is_null($post->user->profile->display_name))
-                                {{ $post->user->name }}
-                            @else
-                                {{ $post->user->profile->display_name }}
-                            @endif
+                                {{ $post->user->display_name }}
                             <a/>
                             <small><a href="/{{ $post->user->name }}">{{ '@' . $post->user->name }}</a> &#8226; <span class="created-at">{{ $post->created_at }}</span></small>
                         </span>

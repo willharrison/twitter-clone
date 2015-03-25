@@ -33,7 +33,11 @@ class SubscribeController extends Controller {
 
 		$this->dispatch($command);
 
-		return redirect()->back();
+        return response()->json([
+            'success' => true,
+            'data' => 'Follow success!',
+            200
+        ]);
 	}
 
 	public function postUnfollow(Requests\StopFollowingRequest $request)
@@ -45,7 +49,11 @@ class SubscribeController extends Controller {
 
 		$this->dispatch($command);
 
-		return redirect()->back();
+        return response()->json([
+            'success' => true,
+            'data' => 'Follow removed!',
+            200
+        ]);
 	}
 
 	public function postMute(Requests\MuteRequest $request)

@@ -13,6 +13,11 @@
             <div>
                 <span class="big">Posts</span>
             </div>
+            @if ($posts->isEmpty())
+                <div class="big text-center" style="padding-top: 10px;">
+                    Say something!
+                </div>
+            @endif
             @foreach ($posts as $post)
                 <div class="post">
                     <div class="repost">
@@ -34,11 +39,7 @@
                     <div>
                         <span class="post-name">
                             <a href="/{{ $post->user->name }}">
-                                @if (is_null($post->user->profile->display_name))
-                                    {{ $post->user->name }}
-                                @else
-                                    {{ $post->user->profile->display_name }}
-                                @endif
+                                    {{ $post->user->display_name }}
                                 <a/>
                                 <small><a href="/{{ $post->user->name }}">{{ '@' . $post->user->name }}</a> &#8226; {{ $post->created_at }}</small>
                         </span>

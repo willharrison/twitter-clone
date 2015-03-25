@@ -13,6 +13,90 @@ body {
   background-color: #f6f6f6;
 }
 
+.wrapper {
+  margin-top: 10px;
+}
+
+.options {
+  &.follow-options {
+    .btn {
+      margin-bottom: 5px;
+      margin-left: 5px;
+    }
+  }
+}
+
+.fa-cog {
+  color: $grey;
+  cursor: pointer;
+}
+
+.follow {
+  border-radius: 5px;
+  width: 290px;
+  height: 280px;
+  border: 1px solid $light-grey;
+  background: white;
+
+  > div:first-child {
+    background-color: $primary-blue;
+    width: 100%;
+    height: 95px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  > div:nth-child(2) {
+    div {
+      margin-left: 18px;
+
+      .big {
+        margin: 0;
+
+        a, a:visited {
+          color: black;
+        }
+        a:hover, a:active {
+          text-decoration: underline;
+          color: black;
+        }
+        p {
+          font-size: 15px;
+          font-weight: normal;
+          color: $grey;
+          a, a:visited {
+            color: $grey;
+          }
+          a:hover, a:active {
+            text-decoration: underline;
+            color: $grey;
+          }
+        }
+      }
+    }
+    > div:first-child {
+      margin-top: -25px;
+      margin-left: 15px;
+      > div {
+        display: inline-block;
+        margin: 0;
+      }
+      .options {
+        width: 186px;
+        vertical-align: bottom;
+        text-align: right;
+      }
+    }
+  }
+
+  img {
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    border: 3px solid white;
+  }
+}
+
 .top-bg {
   background-color: $primary-blue;
   width: 100%;

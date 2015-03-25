@@ -6559,6 +6559,63 @@ body {
   padding-top: 52px;
   background-color: #f6f6f6; }
 
+.wrapper {
+  margin-top: 10px; }
+
+.options.follow-options .btn {
+  margin-bottom: 5px;
+  margin-left: 5px; }
+
+.fa-cog {
+  color: #a0a0a0;
+  cursor: pointer; }
+
+.follow {
+  border-radius: 5px;
+  width: 290px;
+  height: 280px;
+  border: 1px solid #e5e5e5;
+  background: white; }
+  .follow > div:first-child {
+    background-color: #0084B4;
+    width: 100%;
+    height: 95px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px; }
+  .follow > div:nth-child(2) div {
+    margin-left: 18px; }
+    .follow > div:nth-child(2) div .big {
+      margin: 0; }
+      .follow > div:nth-child(2) div .big a, .follow > div:nth-child(2) div .big a:visited {
+        color: black; }
+      .follow > div:nth-child(2) div .big a:hover, .follow > div:nth-child(2) div .big a:active {
+        text-decoration: underline;
+        color: black; }
+      .follow > div:nth-child(2) div .big p {
+        font-size: 15px;
+        font-weight: normal;
+        color: #a0a0a0; }
+        .follow > div:nth-child(2) div .big p a, .follow > div:nth-child(2) div .big p a:visited {
+          color: #a0a0a0; }
+        .follow > div:nth-child(2) div .big p a:hover, .follow > div:nth-child(2) div .big p a:active {
+          text-decoration: underline;
+          color: #a0a0a0; }
+  .follow > div:nth-child(2) > div:first-child {
+    margin-top: -25px;
+    margin-left: 15px; }
+    .follow > div:nth-child(2) > div:first-child > div {
+      display: inline-block;
+      margin: 0; }
+    .follow > div:nth-child(2) > div:first-child .options {
+      width: 186px;
+      vertical-align: bottom;
+      text-align: right; }
+  .follow img {
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    border: 3px solid white; }
+
 .top-bg {
   background-color: #0084B4;
   width: 100%;

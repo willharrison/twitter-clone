@@ -142,6 +142,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasOne('Twitter\Profile');
     }
 
+    public function getDisplayNameAttribute()
+    {
+        $available = false;
+        if (isset($this->profile->display_name)
+            && !empty($this->profile->display_name))
+        {
+            $available = true;
+        }
+
+        return $available ?
+            $this->profile->display_name :
+            $this->name;
+    }
+
     public function profileImage($size = 'small')
     {
         $webpath = 'images/no-thumb.png';

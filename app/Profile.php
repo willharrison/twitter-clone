@@ -17,5 +17,4 @@ class Profile extends Model {
     {
         return $this->belongsTo('Twitter\Image');
     }
-
 }
