@@ -32,6 +32,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+    public function hasAlert($id)
+    {
+        foreach ($this->alerts as $alert)
+        {
+            if ($alert->id == $id)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 	public function follows($id)
 	{
 		foreach ($this->following as $following)
@@ -154,6 +167,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $available ?
             $this->profile->display_name :
             $this->name;
+    }
+
+    public function getUnreadAlertsAttribute()
+    {
+        return $this->alerts->where('read', 0);
     }
 
     public function profileImage($size = 'small')

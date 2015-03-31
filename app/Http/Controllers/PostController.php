@@ -36,11 +36,14 @@ class PostController extends Controller {
     public function getShow(User $user, $id)
     {
         $post = $user->posts()->find($id);
+        $replies = $post->replies;
 
         return view('status.show')
             ->withMe($this->me)
             ->withPost($post)
-            ->withUser($user);
+            ->withPosts($replies)
+            ->withUser($user)
+            ->withFlag(true);
     }
 
     public function postCreate(Requests\CreatePostRequest $request)
@@ -59,7 +62,7 @@ class PostController extends Controller {
             'data' => [
                 'id' => $latest->id,
                 'created' => $latest->created_at->toDateTimeString(),
-                'post' => $this->parser->linkify($latest->post, '@')
+                'post' => $this->parser->postToHTML($latest->post)
             ],
             200
         ]);
@@ -76,7 +79,17 @@ class PostController extends Controller {
             $postString
         ));
 
-        return redirect('home');
+        $latest = $this->repo->latest();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'id' => $latest->id,
+                'created' => $latest->created_at->toDateTimeString(),
+                'post' => $this->parser->postToHTML($latest->post)
+            ],
+            200
+        ]);
     }
 
     public function postDestroy(Requests\DeletePostRequest $request)

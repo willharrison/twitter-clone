@@ -12,4 +12,9 @@ class Favorite extends Model {
     {
         return $this->belongsTo('Twitter\Post');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('Twitter\User');
+    }
 }

@@ -38,19 +38,8 @@ class PostsGetter {
     public function getAllOrdered($userId)
     {
         $all = $this->getAll($userId);
-        $all->sort(function($a, $b)
-        {
-            $a = $a->created_at;
-            $b = $b->created_at;
 
-            if ($a === $b) {
-                return 0;
-            }
-
-            return ($a < $b) ? 1 : -1;
-        });
-
-        return $all;
+        return $this->sort($all);
     }
 
     public function followingPost($userId)
@@ -63,6 +52,23 @@ class PostsGetter {
             $followedPosts = $this->post->findByUser($user->id);
             $posts = $posts->merge($followedPosts);
         }
+
+        return $this->sort($posts);
+    }
+
+    private function sort($posts)
+    {
+        $posts->sort(function($a, $b)
+        {
+            $a = $a->created_at;
+            $b = $b->created_at;
+
+            if ($a === $b) {
+                return 0;
+            }
+
+            return ($a < $b) ? 1 : -1;
+        });
 
         return $posts;
     }

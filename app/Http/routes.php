@@ -17,6 +17,7 @@ Route::get('/', function()
 });
 
 Route::get('home', 'HomeController@index');
+Route::get('notifications', 'HomeController@notifications');
 Route::get('trending', 'HomeController@trending');
 
 Route::get('{user}', 'UserController@show');
@@ -24,6 +25,9 @@ Route::get('{user}/favorites', 'UserController@showFavorites');
 Route::get('{user}/followers', 'UserController@showFollowers');
 Route::get('{user}/following', 'UserController@showFollowing');
 Route::get('{user}/status/{id}', 'PostController@getShow');
+Route::get('hashtag/{hashtag}', 'HashTagController@show');
+Route::post('alert/read', 'AlertController@read');
+Route::post('alert/readAll', 'AlertController@readAll');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

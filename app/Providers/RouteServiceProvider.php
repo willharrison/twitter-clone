@@ -29,6 +29,16 @@ class RouteServiceProvider extends ServiceProvider {
 		{
 			return \Twitter\User::where('name', $value)->firstOrFail();
 		});
+
+        $router->bind('hashtag', function($value)
+        {
+            return \Twitter\Hashtag::where('hashtag', $value)->firstOrFail();
+        });
+
+        $router->bind('alert', function($value)
+        {
+            return \Twitter\Alert::where('id', $value)->firstOrFail();
+        });
 	}
 
 	/**

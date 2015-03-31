@@ -20,12 +20,6 @@ class UserController extends Controller {
         $this->favRepo = $favRepo;
     }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function show(User $user)
 	{
         $posts = $this->getter->getAllOrdered($user->id);

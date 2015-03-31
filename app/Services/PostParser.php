@@ -25,10 +25,27 @@ class PostParser {
         return $this->parse($post, $this->hashtagMark);
     }
 
+    public function postToHTML($post)
+    {
+        $mentionsLinked = $this->linkMentions($post);
+        return $this->linkHashtags($mentionsLinked);
+    }
+
+    public function linkMentions($post)
+    {
+        return $this->linkify($post, $this->mentionMark);
+    }
+
+    public function linkHashtags($post)
+    {
+        return $this->linkify($post, $this->hashtagMark, 'hashtag');
+    }
+
     public function linkify($post, $checkFor, $url = '')
     {
         $postArray = explode(' ', $post);
         $newPost = [];
+        $url = $url === '' ? $url : '/' .  $url;
 
         foreach ($postArray as $section)
         {

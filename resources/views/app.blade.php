@@ -1,4 +1,5 @@
 <?php $profilePage = isset($user); ?>
+<?php $flag = isset($flag); ?>
 <!DOCTYPE html>
 <html lang="en" ng-app>
 <head>
@@ -9,15 +10,23 @@
 	<link rel="stylesheet" href="{{ elixir("css/app-compiled.css") }}">
     <script>
         var csrf_token = "{{ csrf_token() }}";
+        @if (Auth::check())
+            var my_name = "{{ Auth::user()->name }}";
+        @endif
         @if ($profilePage)
             var my_id = "{{ Auth::user()->id }}";
-            var user_id = "{{ $user->id }}";
+            @if ($flag)
+                var user_id = "{{ Auth::user()->id }}";
+            @else
+                var user_id = "{{ $user->id }}";
+            @endif
         @endif
     </script>
-    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 </head>
 <body>
+
+    <div class="alert big">Your post has been created!</div>
 
     <div class="modal fade" id="reply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -51,7 +60,12 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="/home"><i class="fa fa-home"></i> Home</a></li>
-                    <li><a href="#about"><i class="fa fa-bell"></i> Notifications</a></li>
+                    <li><a href="/notifications"><i class="fa fa-bell"></i>
+                            <?php $alertCount = count(Auth::user()->alerts->where('read', 0)); ?>
+                            @if ($alertCount > 0)
+                                <span class="notification-count small">{{ $alertCount }}</span>
+                            @endif
+                            Notifications</a></li>
                     <li><a href="#contact"><i class="fa fa-envelope"></i> Messages</a></li>
                 </ul>
                 <div class="navbar-form navbar-right">
@@ -96,6 +110,8 @@
                         <li class="delete-post"><a>Delete Post</a></li>
                     </ul>
                 </div>
+
+                <a class="view-post" href=""><span class="caps small">View Post</span> <i class="fa fa-arrow-right"></i></a>
 
             </div>
         </div>

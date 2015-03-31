@@ -10,6 +10,8 @@ class Hashtag extends Model {
 
     public function posts()
     {
-        return $this->belongsToMany('Twitter\Post');
+        return $this->belongsToMany('Twitter\Post', 'hashtag_map', 'hashtag_id', 'post_id')
+            ->orderBy('created_at', 'desc');
     }
+
 }

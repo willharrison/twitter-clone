@@ -132,6 +132,7 @@
                 clone.find('.post-content').html(success.data.post);
                 clone.find('.post-options').data('post-id', success.data.id);
                 clone.find('.created-at').html(success.data.created);
+                clone.find('.view-post').attr('href', my_name + '/status/' + success.data.id);
                 $this.parents('.posts').find('.post-create').after(clone.addClass('new-post'));
                 $('.new-post').hide().slideDown().removeClass('new-post');
                 increaseCount('.post-count');

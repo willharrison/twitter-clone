@@ -6689,6 +6689,7 @@ body {
 .navbar.navbar-static-top {
   margin: 0; }
 .navbar.white {
+  z-index: 10;
   background-color: white; }
 
 .container-full {
@@ -6726,6 +6727,12 @@ body {
   #modal-reply-box:focus {
     outline: none; }
 
+.post-options i {
+  font-size: 14px;
+  font-weight: bold;
+  color: #a0a0a0;
+  margin-right: 40px; }
+
 .posts {
   margin: 10px;
   padding: 0;
@@ -6733,32 +6740,30 @@ body {
   border-top-left-radius: 10px;
   border: 1px solid #e5e5e5;
   background-color: white; }
+  .posts .post-create.no-round {
+    border-radius: 0; }
   .posts > div:not(:first-child) {
     border-top: 1px solid #e5e5e5; }
   .posts > div {
     padding: 10px;
     padding-top: 20px;
     border: 1px solid transparent; }
-    .posts > div div i {
-      font-size: 14px;
-      font-weight: bold;
-      color: #a0a0a0;
-      margin-right: 40px; }
-    .posts > div div .fa-reply:hover, .posts > div div .fa-ellipsis-h:hover {
+    .posts > div > div .fa-reply:hover, .posts > div > div .fa-ellipsis-h:hover {
       color: #0084B4;
       cursor: pointer; }
-    .posts > div div .fa-retweet:hover, .posts > div div .reposted {
+    .posts > div > div .fa-retweet:hover, .posts > div > div .reposted {
       color: #008000;
       cursor: pointer; }
-    .posts > div div .fa-star:hover, .posts > div div .favorited {
+    .posts > div > div .fa-star:hover, .posts > div > div .favorited {
       color: #ff9f06;
       cursor: pointer; }
-    .posts > div div .repost-disable, .posts > div div .repost-disable:hover {
+    .posts > div > div .repost-disable, .posts > div > div .repost-disable:hover {
       color: #e5e5e5;
       cursor: default; }
-  .posts > div:hover:not(:first-child) {
-    border: 1px solid rgba(0, 158, 209, 0.77);
-    cursor: pointer; }
+    .posts > div > div a:active i, .posts > div > div a:hover i {
+      color: #0084B4; }
+    .posts > div > div a:active span, .posts > div > div a:hover span {
+      color: #0084B4; }
   .posts > div:first-child {
     padding-top: 10px; }
   .posts .post-create {
@@ -6786,62 +6791,103 @@ body {
         .posts .post-create div:last-child .submit-post i {
           margin: 0;
           color: white; }
-  .posts .post .post-name {
-    display: block;
-    font-weight: 500;
-    font-size: 14px;
-    margin-top: -4px; }
-    .posts .post .post-name small {
-      color: #a0a0a0;
-      font-weight: normal;
-      font-size: 13px; }
-      .posts .post .post-name small a, .posts .post .post-name small a:visited, .posts .post .post-name small a:hover, .posts .post .post-name small a:active {
-        color: #a0a0a0; }
-    .posts .post .post-name a, .posts .post .post-name a:visited, .posts .post .post-name a:hover, .posts .post .post-name a:active {
-      color: black; }
-  .posts .post .post-content {
-    font-size: 17px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin: 0; }
-    .posts .post .post-content a, .posts .post .post-content a:visited {
-      color: #0084B4; }
-    .posts .post .post-content a:hover, .posts .post .post-content a:active {
+
+.post.big {
+  font-weight: 200;
+  padding: 20px; }
+  .post.big div {
+    vertical-align: middle; }
+  .post.big div:nth-child(2) {
+    width: 248px; }
+  .post.big .post-content {
+    font-size: 30px; }
+  .post.big .options {
+    width: 200px;
+    text-align: right; }
+    .post.big .options button i {
+      margin: 0; }
+  .post.big div:first-child {
+    display: block; }
+    .post.big div:first-child div {
+      display: inline-block; }
+      .post.big div:first-child div span {
+        display: inline-block; }
+    .post.big div:first-child .post-name small {
+      font-size: 14px; }
+.post .post-name {
+  display: block;
+  font-weight: 500;
+  font-size: 14px;
+  margin-top: -4px; }
+  .post .post-name small {
+    color: #a0a0a0;
+    font-weight: normal;
+    font-size: 13px; }
+    .post .post-name small a, .post .post-name small a:visited, .post .post-name small a:hover, .post .post-name small a:active {
+      color: #a0a0a0; }
+  .post .post-name a, .post .post-name a:visited, .post .post-name a:hover, .post .post-name a:active {
+    color: black; }
+.post .post-content {
+  font-size: 17px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0; }
+  .post .post-content a, .post .post-content a:visited {
+    color: #0084B4; }
+  .post .post-content a:hover, .post .post-content a:active {
+    text-decoration: underline; }
+.post img {
+  border-radius: 3px; }
+.post div {
+  display: inline-block;
+  vertical-align: top; }
+.post div:nth-child(2) {
+  min-width: 32px; }
+.post div:last-child {
+  word-wrap: break-word;
+  width: 90%; }
+.post .repost {
+  display: block;
+  width: 100%; }
+  .post .repost div {
+    width: 250px;
+    color: #a0a0a0;
+    font-size: 13px; }
+    .post .repost div a, .post .repost div a:hover, .post .repost div a:visited, .post .repost div a:active {
+      color: #a0a0a0; }
+    .post .repost div a:hover, .post .repost div a:active {
       text-decoration: underline; }
-  .posts .post img {
-    border-radius: 3px; }
-  .posts .post div {
-    display: inline-block;
-    vertical-align: top; }
-  .posts .post div:nth-child(2) {
-    min-width: 32px; }
-  .posts .post div:last-child {
-    word-wrap: break-word;
-    width: 90%; }
-  .posts .post .repost {
-    display: block;
-    width: 100%; }
-    .posts .post .repost div {
-      width: 250px;
-      color: #a0a0a0;
-      font-size: 13px; }
-      .posts .post .repost div a, .posts .post .repost div a:hover, .posts .post .repost div a:visited, .posts .post .repost div a:active {
-        color: #a0a0a0; }
-      .posts .post .repost div a:hover, .posts .post .repost div a:active {
-        text-decoration: underline; }
-    .posts .post .repost div:first-child {
-      text-align: right;
-      width: 32px; }
-      .posts .post .repost div:first-child i, .posts .post .repost div:first-child i:hover, .posts .post .repost div:first-child i:visited, .posts .post .repost div:first-child i:active {
-        margin: 0;
-        margin-bottom: 5px;
-        margin-right: 8px;
-        font-size: 11px;
-        background-color: #008000;
-        color: white;
-        border-radius: 2px;
-        padding: 2px;
-        cursor: default; }
+  .post .repost div:first-child {
+    text-align: right;
+    width: 32px; }
+    .post .repost div:first-child i, .post .repost div:first-child i:hover, .post .repost div:first-child i:visited, .post .repost div:first-child i:active {
+      margin: 0;
+      margin-bottom: 5px;
+      margin-right: 8px;
+      font-size: 11px;
+      background-color: #008000;
+      color: white;
+      border-radius: 2px;
+      padding: 2px;
+      cursor: default; }
+
+.alert {
+  margin-top: -500px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 11px #555;
+  width: 500px;
+  height: 100px;
+  font-weight: normal;
+  padding-top: 61px;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  margin-left: -250px;
+  display: none;
+  z-index: 9; }
+  .alert.big {
+    font-size: 17px; }
 
 .container.home {
   margin-top: 10px; }
@@ -6878,6 +6924,9 @@ body {
   border-radius: 10px;
   color: #9d9d9d;
   background-color: white; }
+  .trending a:active, .trending a:hover {
+    color: #9d9d9d;
+    text-decoration: underline; }
 
 .margin-left {
   margin-left: 10px; }
@@ -6981,3 +7030,57 @@ a:hover, a:active {
 
 .vertical-center-follow {
   margin-top: 13px; }
+
+.notification-count {
+  background-color: red;
+  position: absolute;
+  border-radius: 3px;
+  color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  left: 10px;
+  bottom: 10px; }
+
+.clear-all {
+  cursor: pointer;
+  background-color: white;
+  border: 0; }
+
+.clear-all:hover {
+  text-decoration: underline; }
+
+.unread {
+  padding: 14px; }
+
+.alert-unread {
+  background-color: #f5fafc; }
+
+.fa-trash-o:hover {
+  color: #0084B4;
+  cursor: pointer; }
+
+.profile-headers span {
+  display: inline-block;
+  margin-right: 30px; }
+
+.light {
+  font-weight: 200; }
+
+.post.big .reposts-favorites {
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 505px; }
+  .post.big .reposts-favorites div {
+    display: inline-block;
+    width: 70px;
+    padding-top: 5px;
+    padding-bottom: 10px; }
+  .post.big .reposts-favorites div:last-child {
+    width: 333px; }
+  .post.big .reposts-favorites .separator {
+    border-left: 1px solid #e5e5e5;
+    height: 70px;
+    vertical-align: middle;
+    width: 5px; }
