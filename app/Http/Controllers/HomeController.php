@@ -2,30 +2,25 @@
 
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
+use Twitter\Repositories\PostRepository;
 use Twitter\Services\PostsGetter;
 use Twitter\Services\Trending;
 
 class HomeController extends Controller {
 
-    protected $getter, $me;
+    protected $getter, $me, $repo;
 
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Guard $auth, PostsGetter $getter)
+	public function __construct(
+        Guard $auth,
+        PostsGetter $getter,
+        PostRepository $repo)
 	{
 		$this->middleware('auth');
         $this->me = $auth->user();
         $this->getter = $getter;
+        $this->repo = $repo;
 	}
 
-	/**
-	 * Show the application dashboard to the user.
-	 *
-	 * @return Response
-	 */
 	public function index(
         Request $request,
         Trending $trending,
@@ -45,4 +40,12 @@ class HomeController extends Controller {
             ->withAlerts($alerts);
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->q;
+        $results = $this->repo->search($query);
+        return view('search.show')
+            ->withQuery($query)
+            ->withPosts($results);
+    }
 }

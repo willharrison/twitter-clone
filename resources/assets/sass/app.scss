@@ -372,7 +372,7 @@ body {
       vertical-align: middle;
     }
     div:nth-child(2) {
-      width: 248px;
+      //width: 248px;
     }
     .post-content {
       font-size: 30px;
@@ -383,7 +383,7 @@ body {
           margin: 0;
         }
       }
-      width: 200px;
+      width: 150px;
       text-align: right;
     }
     div:first-child {
@@ -719,8 +719,17 @@ a:hover, a:active {
   text-decoration: underline;
 }
 
+a.primary-blue:visited {
+  color: $primary-blue;
+}
+
+a.primary-blue:hover {
+  text-decoration: underline;
+}
+
 .unread {
-  padding: 14px;
+  padding: 10px;
+  padding-top: 14px;
 }
 
 .alert-unread {
@@ -750,7 +759,7 @@ a:hover, a:active {
       border-bottom: 1px solid $light-grey;
       margin-top: 10px;
       margin-bottom: 10px;
-      width: 505px;
+      //width: 505px;
 
       div {
         display: inline-block;
@@ -759,7 +768,7 @@ a:hover, a:active {
         padding-bottom: 10px;
       }
       div:last-child {
-        width: 333px;
+        //width: 333px;
       }
       .separator {
         border-left: 1px solid $light-grey;

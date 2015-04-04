@@ -12,4 +12,9 @@ class Alert extends Model {
     {
         return $this->belongsTo('Twitter\User');
     }
+
+    public function post()
+    {
+        return $this->belongsTo('Twitter\Post');
+    }
 }

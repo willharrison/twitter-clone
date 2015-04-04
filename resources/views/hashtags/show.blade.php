@@ -8,7 +8,7 @@
         <div class="posts">
 
             <div class="search-results">
-                <div class="big text-center">Results for {{ '#' . $hashtag }}</div>
+                <div class="big text-center">Results for <em>{{ '#' . $hashtag }}</em></div>
             </div>
 
             @include('postlist')

@@ -1,9 +1,11 @@
 <?php namespace Twitter\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use Twitter\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Twitter\User;
 
 class AuthController extends Controller {
 
@@ -34,5 +36,4 @@ class AuthController extends Controller {
 
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
-
 }

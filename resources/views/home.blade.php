@@ -10,11 +10,15 @@
             <div class="side-container">
                 <div class="top">
                     <div class="row">
-                        <img class="home-profile" src="{{ asset(Auth::user()->profileImage('large')) }}"/>
+                        <a href="/{{ Auth::user()->name }}">
+                            <img class="home-profile" src="{{ asset(Auth::user()->profileImage('large')) }}"/>
+                        </a>
                     </div>
                     <div class="row bottom home-name">
-                        <span class="font-black">{{ Auth::user()->display_name }}</span>
-                        <span class="medium">{{ '@' . Auth::user()->name }}</span>
+                        <a href="/{{ Auth::user()->name }}">
+                            <span class="font-black">{{ Auth::user()->display_name }}</span>
+                            <span class="medium">{{ '@' . Auth::user()->name }}</span>
+                        </a>
                     </div>
                 </div>
                 <div class="row">

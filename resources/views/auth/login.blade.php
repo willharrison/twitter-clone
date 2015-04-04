@@ -1,4 +1,4 @@
-@extends('app')
+@extends('guest')
 
 @section('content')
 <div class="container-fluid">
@@ -51,7 +51,7 @@
 									Login
 								</button>
 
-								<a href="/password/email">Forgot Your Password?</a>
+								<!-- <a href="/password/email">Forgot Your Password?</a> -->
 							</div>
 						</div>
 					</form>

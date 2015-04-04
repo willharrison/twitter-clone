@@ -27,8 +27,30 @@ class PostParser {
 
     public function postToHTML($post)
     {
-        $mentionsLinked = $this->linkMentions($post);
+        $linkUrls = $this->linkUrls($post);
+        $mentionsLinked = $this->linkMentions($linkUrls);
         return $this->linkHashtags($mentionsLinked);
+    }
+
+    public function linkUrls($post)
+    {
+        $postArray = explode(' ', $post);
+        $newPost = [];
+
+        foreach ($postArray as $section)
+        {
+            if (filter_var($section, FILTER_VALIDATE_URL))
+            {
+                $temp = $section;
+                if (!preg_match('#^http(s)?://#', $section)) {
+                    $section = 'http://' . $section;
+                }
+                $section = "<a href=\"{$section}\" target=\"_blank\">{$temp}</a>";
+            }
+            array_push($newPost, $section);
+        }
+
+        return implode(' ', $newPost);
     }
 
     public function linkMentions($post)

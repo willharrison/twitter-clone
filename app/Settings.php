@@ -6,7 +6,7 @@ class Settings extends Model {
 
     protected $table = 'users_info';
 
-    protected $fillable = ['language', 'country'];
+    protected $fillable = ['user_id', 'language', 'country'];
 
     public function user()
     {

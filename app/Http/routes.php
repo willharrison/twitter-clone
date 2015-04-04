@@ -19,6 +19,7 @@ Route::get('/', function()
 Route::get('home', 'HomeController@index');
 Route::get('notifications', 'HomeController@notifications');
 Route::get('trending', 'HomeController@trending');
+Route::get('search', 'HomeController@search');
 
 Route::get('{user}', 'UserController@show');
 Route::get('{user}/favorites', 'UserController@showFavorites');

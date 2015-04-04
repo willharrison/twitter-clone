@@ -11,7 +11,6 @@
         <div class="col-xs-9 posts">
             <div class="profile-headers">
                 <span class="big">Posts</span>
-                <span class="big primary-blue light">Posts & Replies</span>
             </div>
             @if ($posts->isEmpty())
                 <div class="big text-center first-post" style="padding-top: 10px;">

@@ -79,9 +79,41 @@ $(function() {
         decreaseCount($modalCount);
     });
 
+    $('.reply-submit-post').click(function() {
+        var $this = $(this);
+        var post = $this.parents('.post-create').find('.post-editable').text();
+        if (post.length === 0) {
+            return;
+        }
+        var postId = $this.parents('.post-create').find('.post-editable').data('post-id');
+        var url = typeof postId !== 'undefined' ? '/post/reply' : '/post/create';
+        $.post(url,
+            { '_token': csrf_token, 'post': post, 'post_id': postId },
+            function(success) {
+                if (typeof my_id !== 'undefined') {
+                    if (my_id === user_id) {
+                        var clone = $('.cloneable-post').clone(true, true);
+                        clone.removeClass('cloneable-post').addClass('post');
+                        clone.find('.post-content').html(success.data.post);
+                        clone.find('.post-options').data('post-id', success.data.id);
+                        clone.find('.created-at').html(success.data.created);
+                        clone.find('.view-post').attr('href', my_name + '/status/' + success.data.id);
+                        $('.post-create').after(clone.addClass('new-post'));
+                        $('.new-post').hide().slideDown().removeClass('new-post');
+                    }
+                }
+                $('.post-editable').html('');
+                $('.create-post-count-down').html('140');
+            }
+        );
+    });
+
     $modalSubmit.click(function() {
         var $this = $(this);
         var post = $modalPostBox.text();
+        if (post.length === 0) {
+            return;
+        }
         var postId = $modalContent.data('post-id');
         var url = typeof postId !== 'undefined' ? '/post/reply' : '/post/create';
         $.post(url,

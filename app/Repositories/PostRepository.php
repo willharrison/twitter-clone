@@ -39,6 +39,23 @@ class PostRepository {
 
     public function remove($id)
     {
-        return $this->post->find($id)->delete();
+        $post = $this->post->find($id);
+        $children = $post->replies;
+
+        foreach ($children as $child)
+        {
+            $child->parent_id = null;
+            $child->save();
+        }
+
+        return $post->delete();
+    }
+
+    public function search($query)
+    {
+        return $this->post
+            ->where('post', 'LIKE', "%{$query}%")
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 }

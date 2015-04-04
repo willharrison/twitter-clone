@@ -6797,12 +6797,10 @@ body {
   padding: 20px; }
   .post.big div {
     vertical-align: middle; }
-  .post.big div:nth-child(2) {
-    width: 248px; }
   .post.big .post-content {
     font-size: 30px; }
   .post.big .options {
-    width: 200px;
+    width: 150px;
     text-align: right; }
     .post.big .options button i {
       margin: 0; }
@@ -7049,8 +7047,15 @@ a:hover, a:active {
 .clear-all:hover {
   text-decoration: underline; }
 
+a.primary-blue:visited {
+  color: #0084B4; }
+
+a.primary-blue:hover {
+  text-decoration: underline; }
+
 .unread {
-  padding: 14px; }
+  padding: 10px;
+  padding-top: 14px; }
 
 .alert-unread {
   background-color: #f5fafc; }
@@ -7070,15 +7075,12 @@ a:hover, a:active {
   border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
   margin-top: 10px;
-  margin-bottom: 10px;
-  width: 505px; }
+  margin-bottom: 10px; }
   .post.big .reposts-favorites div {
     display: inline-block;
     width: 70px;
     padding-top: 5px;
     padding-bottom: 10px; }
-  .post.big .reposts-favorites div:last-child {
-    width: 333px; }
   .post.big .reposts-favorites .separator {
     border-left: 1px solid #e5e5e5;
     height: 70px;

@@ -12,12 +12,11 @@
         var csrf_token = "{{ csrf_token() }}";
         @if (Auth::check())
             var my_name = "{{ Auth::user()->name }}";
+            var my_id = "{{ Auth::user()->id }}";
+            var user_id = "{{ Auth::user()->id }}";
         @endif
         @if ($profilePage)
-            var my_id = "{{ Auth::user()->id }}";
-            @if ($flag)
-                var user_id = "{{ Auth::user()->id }}";
-            @else
+            @if (!$flag)
                 var user_id = "{{ $user->id }}";
             @endif
         @endif
@@ -54,30 +53,53 @@
     </div>
 
     @if (Auth::check())
-    <nav class="navbar navbar-fixed-top white">
-        <div class="container-full container">
 
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/home"><i class="fa fa-home"></i> Home</a></li>
-                    <li><a href="/notifications"><i class="fa fa-bell"></i>
-                            <?php $alertCount = count(Auth::user()->alerts->where('read', 0)); ?>
-                            @if ($alertCount > 0)
-                                <span class="notification-count small">{{ $alertCount }}</span>
-                            @endif
-                            Notifications</a></li>
-                    <li><a href="#contact"><i class="fa fa-envelope"></i> Messages</a></li>
-                </ul>
-                <div class="navbar-form navbar-right">
-                        <div class="form-group">
-                            <input type="text" placeholder="Search" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                        <img class="small-top-profile" src="{{ asset(Auth::user()->profileImage()) }}"/>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
-            </div><!--/.navbar-collapse -->
-        </div>
-    </nav>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+
+                        <li><a href="/home"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a href="/notifications"><i class="fa fa-bell"></i>
+                                <?php $alertCount = count(Auth::user()->alerts->where('read', 0)); ?>
+                                @if ($alertCount > 0)
+                                    <span class="notification-count small">{{ $alertCount }}</span>
+                                @endif
+                                Notifications</a></li>
+                        <!-- <li><a href="#contact"><i class="fa fa-envelope"></i> Messages</a></li> -->
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li style="margin-top: 10px; margin-right: 10px; height: 35px">
+                            <form action="/search" method="get" style="display: inline-block">
+                                <div class="form-group">
+                                    <input type="text" name="q" placeholder="Search" class="form-control">
+                                </div>
+                            </form>
+                        </li>
+                        <li style="margin-top: 10px; height: 35px">
+                            <div class="dropdown" style="display: inline; cursor: pointer">
+                                <img class="small-top-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" src="{{ asset(Auth::user()->profileImage()) }}"/>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/profile/edit">Edit Profile</a></li>
+                                    <li><a href="/profile/image">Change Profile Image</a></li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li><a href="/auth/logout">Sign Out</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
     @endif
 
     @yield('content')

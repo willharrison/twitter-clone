@@ -69,6 +69,16 @@
         return newPost.join(' ');
     }
 
+    window.colorTags = function(post) {
+        var newPost = [];
+        post.split(' ').forEach(function(word) {
+            if (word.charAt(0) === '#') {
+                word = "<span class=\"primary-blue\">" + word + "</span>";
+            }
+            newPost.push(word);
+        });
+        return newPost.join(' ');
+    }
     window.setEndOfContenteditable = function(contentEditableElement)
     {
         var range,selection;
@@ -95,7 +105,7 @@
         if ($this.hasClass('post-editable')) {
             elem = document.getElementsByClassName('post-editable')[0];
         }
-        var newHtml = colorMentions(colorInvalid($this.text(), elem));
+        var newHtml = colorTags(colorMentions(colorInvalid($this.text(), elem)));
         $this.html(newHtml);
         setEndOfContenteditable(elem);
         var newValue = 140 - $this.text().length;

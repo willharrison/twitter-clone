@@ -132,7 +132,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function alerts()
 	{
-		return $this->hasMany('Twitter\Alert');
+		return $this->hasMany('Twitter\Alert')->orderBy('created_at', 'desc');
 	}
 
 	public function mutes()
@@ -167,6 +167,23 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $available ?
             $this->profile->display_name :
             $this->name;
+    }
+
+    public function getWebsiteLinkAttribute()
+    {
+        $link = $this->profile->website;
+
+        if (!preg_match('#^http(s)?://#', $link)) {
+            $link = 'http://' . $link;
+        }
+
+        return $link;
+    }
+
+    public function getWebsiteAttribute()
+    {
+        $link = parse_url($this->website_link);
+        return $link['host'];
     }
 
     public function getUnreadAlertsAttribute()

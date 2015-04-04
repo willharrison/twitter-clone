@@ -23,7 +23,7 @@
                 <li><div><i class="grey fa fa-map-marker"></i> <span>{{ $user->profile->location }}</span></div></li>
             @endif
             @if ($user->profile->website)
-                <li><div><i class="grey fa fa-link"></i> <span>{{ $user->profile->website }}</span></div></li>
+                <li><div><i class="grey fa fa-link"></i> <span><a href="{{ $user->website_link }}" class="primary-blue">{{ $user->website }}</a></span></div></li>
             @endif
             <li><div><i class="grey fa fa-clock-o"></i> <span>{{ $user->created_at }}</span></div></li>
         </ul>

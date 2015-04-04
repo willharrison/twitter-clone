@@ -1,3 +1,4 @@
+<?php $parser = new \Twitter\Services\PostParser(); ?>
 @extends('app')
 
 @section('content')
@@ -31,10 +32,16 @@
                     </div>
                     <div>
                         <p class="post-content">
-                            {{ $alert->message }}
+                            <?php echo $parser->postToHTML(htmlspecialchars($alert->message)); ?>
                         </p>
-                        <span class="post-name">
-                            <small><span class="created-at">{{ $alert->created_at }}</span></small>
+                        <span class="post-options" style="color: #a0a0a0">
+                            <small style="margin-right: 20px"><span class="created-at">{{ $alert->created_at }}</span></small>
+                            @if (!is_null($alert->post_id))
+
+                                <a href="/{{ $alert->post->user->name }}/status/{{ $alert->post_id }}">
+                                    <span class="caps small">View Post</span> <i class="fa fa-arrow-right"></i>
+                                </a>
+                            @endif
                         </span>
                     </div>
                 </div>

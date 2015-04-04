@@ -23,7 +23,7 @@
                                 </p>
                         </span>
                     </div>
-                    <div class="options follow-options">
+                    <div style="float: right" class="options follow-options">
                         @if (Auth::user()->id !== $user->id)
                             <div class="btn-group">
                                 <i class="fa fa-cog drop-down-toggle" data-toggle="dropdown" aria-expanded="false"></i>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div>
+                <div style="width: 100%">
                     <p class="post-content">
                         <?php echo $parser->postToHTML(htmlspecialchars($post->post)); ?>
                     </p>
@@ -75,7 +75,7 @@
                         </div>
                     </div>
 
-                    <div class="reposts-favorites">
+                    <div class="reposts-favorites" style="width: 100%">
                         <div>
                             <span class="small grey caps">Reposts</span>
                             <br/>
@@ -103,12 +103,12 @@
 
             <div class="post-create no-round">
                 <div>
-                    <div class="post-editable" data-ph="What's on you mind?" contenteditable="true">
+                    <div class="post-editable" data-ph="What's on you mind?" contenteditable="true" data-post-id="{{ $post->id }}">
                        <span class="primary-blue">{{ '@' . $post->user->name }}</span>
                     </div>
                     <div>
                         <span class="create-post-count-down">140</span>
-                        <button type="button" class="btn btn-primary submit-post"><i class="fa fa-pencil"></i> Post</button>
+                        <button type="button" class="btn btn-primary reply-submit-post"><i class="fa fa-pencil"></i> Post</button>
                     </div>
                 </div>
             </div>

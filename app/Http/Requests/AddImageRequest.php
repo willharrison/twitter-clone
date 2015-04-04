@@ -22,7 +22,7 @@ class AddImageRequest extends Request {
 	public function rules()
 	{
 		return [
-            'image' => 'required|image|max:5000'
+            'image' => 'required|image|max:10000'
 		];
 	}
 
