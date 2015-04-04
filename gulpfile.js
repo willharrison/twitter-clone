@@ -19,6 +19,7 @@ elixir(function(mix) {
     mix.version("public/css/app-compiled.css");
     mix.copy(paths.fontawesome + '/fonts', 'public/build/fonts');
     mix.copy('resources/assets/js/ckeditor', 'public/js/ckeditor/');
+    mix.copy('resources/assets/css', 'public/css/');
     mix.scripts([
         '../../../' + paths.jquery + '/jquery.js',
         '../../../' + paths.bootstrap + '/../javascripts/bootstrap.js',
