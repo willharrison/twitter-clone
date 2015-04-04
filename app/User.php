@@ -188,7 +188,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function getUnreadAlertsAttribute()
     {
-        return $this->alerts->where('read', 0);
+        if (env('APP_ENV') === 'production')
+        {
+            return $this->alerts->where('read', '0');
+        }
+        else
+        {
+            return $this->alerts->where('read', 0);
+        }
     }
 
     public function profileImage($size = 'small')

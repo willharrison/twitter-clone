@@ -70,7 +70,7 @@
 
                         <li><a href="/home"><i class="fa fa-home"></i> Home</a></li>
                         <li><a href="/notifications"><i class="fa fa-bell"></i>
-                                <?php $alertCount = count(Auth::user()->alerts->where('read', 0)); ?>
+                                <?php $alertCount = count(Auth::user()->unread_alerts); ?>
                                 @if ($alertCount > 0)
                                     <span class="notification-count small">{{ $alertCount }}</span>
                                 @endif
